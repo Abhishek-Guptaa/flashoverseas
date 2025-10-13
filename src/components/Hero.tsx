@@ -111,72 +111,63 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative bg-gradient-to-r from-white to-primary-100 py-16 lg:py-28"
+      className="relative bg-white min-h-screen flex items-center"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-0 w-full">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+
           {/* ===== LEFT CONTENT ===== */}
-          <div className="space-y-10">
-            
+          <div className="space-y-8">
+
             {/* ===== HEADING ===== */}
-            <div className="space-y-6">
-              <h1 
-                ref={headingRef} 
-                className="text-4xl font-thin lg:text-6xl text-gray-900"
+            <div className="space-y-4">
+              <h1
+                ref={headingRef}
+                className="text-5xl lg:text-7xl font-light text-gray-900 leading-tight"
               >
-                <span className="block mb-2">Discover Your</span>
-                <span className="block mb-2">Dream Education</span>
-                <span className="block mb-2">and Career in</span>
-                <span className="h-16 flex items-center">
-                  <span 
+                <span className="block">Study in</span>
+                <span className="h-20 flex items-center">
+                  <span
                     ref={destinationRef}
-                    className="text-primary-600 font-semibold min-w-[200px] inline-block relative"
+                    className="text-primary-600 font-normal min-w-[280px] inline-block"
                   >
                     {currentText}
-                    <span className="inline-block w-0.5 h-8 bg-primary-600 ml-1 animate-pulse"></span>
+                    <span className="inline-block w-0.5 h-12 bg-primary-600 ml-1 animate-pulse"></span>
                   </span>
                 </span>
               </h1>
-              
+
               {/* ===== DESCRIPTION ===== */}
               <p
                 ref={paraRef}
-                className="text-base text-gray-600 leading-relaxed max-w-xl"
+                className="text-lg text-gray-500 leading-relaxed max-w-md"
               >
-                Unlock global opportunities with expert guidance, trusted
-                universities, and personalized support — your journey to
-                studying overseas starts here.
+                Expert guidance for your overseas education journey. Trusted by thousands of students worldwide.
               </p>
             </div>
 
             {/* ===== CTA BUTTONS ===== */}
             <div ref={btnsRef} className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-primary-600 text-white px-8 py-4 rounded-xl hover:bg-primary-700 transition-colors flex items-center justify-center space-x-2 group shadow-md">
-                <span className="font-semibold">Start Your Journey</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <button className="bg-gray-900 text-white px-8 py-3.5 rounded-full hover:bg-gray-800 transition-all duration-300 flex items-center justify-center space-x-2 group">
+                <span className="font-medium">Get Started</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-xl hover:border-primary-600 hover:text-primary-600 transition-colors flex items-center justify-center space-x-2 shadow-sm">
-                <Play className="w-5 h-5" />
-                <span className="font-semibold">Watch Video</span>
+              <button className="text-gray-700 px-8 py-3.5 rounded-full hover:text-gray-900 transition-colors flex items-center justify-center space-x-2 group underline underline-offset-4">
+                <span className="font-medium">Learn More</span>
               </button>
             </div>
           </div>
 
           {/* ===== RIGHT IMAGE ===== */}
-          <div className="relative w-fit mx-auto">
-            <div className="relative z-10">
+          <div className="relative flex justify-center lg:justify-end">
+            <div className="relative">
               <img
                 ref={imgRef}
                 src="/girlimg.png"
                 alt="Students studying abroad"
-                className="rounded-2xl shadow-2xl w-auto h-[500px] object-cover"
+                className="rounded-3xl w-auto h-[450px] lg:h-[550px] object-cover"
               />
             </div>
-
-            {/* ===== ACCENT LAYERS ===== */}
-            <div className="absolute -top-6 -right-6 w-[95%] h-[95%] bg-primary-200 rounded-2xl z-0"></div>
-            <div className="absolute -bottom-6 -left-6 w-[95%] h-[95%] bg-gray-300 rounded-2xl -z-10"></div>
           </div>
         </div>
       </div>

@@ -246,31 +246,23 @@ const Header = () => {
                 <Link
                   key={i}
                   to={link.to}
-                  className={`relative px-3 py-2 text-sm font-medium group ${
+                  className={`relative px-3 py-2 text-sm font-medium transition-colors group ${
                     isActive(link.to)
-                      ? "text-primary-600"
-                      : "text-gray-700 hover:text-primary-600"
+                      ? "text-gray-900"
+                      : "text-gray-600 hover:text-gray-900"
                   }`}
                   onMouseEnter={(e) => {
                     const underline = e.currentTarget.querySelector('.underline');
-                    const background = e.currentTarget.querySelector('.hover-bg');
-                    
+
                     gsap.to(underline, {
                       width: '100%',
-                      duration: 0.4,
-                      ease: "power2.out"
-                    });
-                    
-                    gsap.to(background, {
-                      scale: 1,
                       duration: 0.3,
-                      ease: "back.out(1.7)"
+                      ease: "power2.out"
                     });
                   }}
                   onMouseLeave={(e) => {
                     const underline = e.currentTarget.querySelector('.underline');
-                    const background = e.currentTarget.querySelector('.hover-bg');
-                    
+
                     if (!isActive(link.to)) {
                       gsap.to(underline, {
                         width: '0%',
@@ -278,45 +270,35 @@ const Header = () => {
                         ease: "power2.out"
                       });
                     }
-                    
-                    gsap.to(background, {
-                      scale: 0,
-                      duration: 0.2,
-                      ease: "power2.out"
-                    });
                   }}
                 >
                   {link.label}
-                  {/* Beautiful underline animation */}
-                  <span className={`underline absolute bottom-0 left-0 h-0.5 bg-primary-600 ${
+                  <span className={`underline absolute bottom-0 left-0 h-0.5 bg-gray-900 ${
                     isActive(link.to) ? 'w-full' : 'w-0'
                   }`}></span>
-                  {/* Hover background effect */}
-                  <span className="hover-bg absolute inset-0 bg-primary-50 rounded-lg scale-0 -z-10"></span>
                 </Link>
               ))}
-              <button 
-                className="relative bg-primary-600 text-white px-6 py-2 rounded-lg group overflow-hidden"
+              <button
+                className="relative bg-gray-900 text-white px-6 py-2 rounded-full group overflow-hidden font-medium"
                 onMouseEnter={(e) => {
                   const button = e.currentTarget;
                   const overlay = button.querySelector('.button-overlay');
                   const text = button.querySelector('.button-text');
-                  
+
                   gsap.to(button, {
-                    scale: 1.05,
-                    boxShadow: '0 8px 25px rgba(252, 56, 97, 0.3)',
+                    scale: 1.02,
                     duration: 0.3,
                     ease: "power2.out"
                   });
-                  
+
                   gsap.to(overlay, {
                     scaleX: 1,
                     duration: 0.4,
                     ease: "power2.out"
                   });
-                  
+
                   gsap.to(text, {
-                    y: -2,
+                    y: -1,
                     duration: 0.3,
                     ease: "power2.out"
                   });
@@ -325,20 +307,19 @@ const Header = () => {
                   const button = e.currentTarget;
                   const overlay = button.querySelector('.button-overlay');
                   const text = button.querySelector('.button-text');
-                  
+
                   gsap.to(button, {
                     scale: 1,
-                    boxShadow: '0 4px 15px rgba(252, 56, 97, 0.2)',
                     duration: 0.3,
                     ease: "power2.out"
                   });
-                  
+
                   gsap.to(overlay, {
                     scaleX: 0,
                     duration: 0.3,
                     ease: "power2.out"
                   });
-                  
+
                   gsap.to(text, {
                     y: 0,
                     duration: 0.3,
@@ -346,8 +327,8 @@ const Header = () => {
                   });
                 }}
               >
-                <span className="button-text relative z-10">Free Consultation</span>
-                <span className="button-overlay absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-700 scale-x-0 origin-left"></span>
+                <span className="button-text relative z-10">Get Started</span>
+                <span className="button-overlay absolute inset-0 bg-gray-800 scale-x-0 origin-left"></span>
               </button>
             </div>
           </div>
@@ -422,10 +403,10 @@ const Header = () => {
                 if (el) linkRefs.current[i] = el;
               }}
               onClick={() => setIsMenuOpen(false)}
-              className={`relative block text-xl font-medium py-3 px-4 rounded-xl group ${
+              className={`relative block text-xl font-normal py-3 px-4 rounded-xl group ${
                 isActive(link.to)
-                  ? "text-primary-600 bg-primary-50"
-                  : "text-gray-800 hover:text-primary-600 hover:bg-gray-50"
+                  ? "text-gray-900 bg-gray-100"
+                  : "text-gray-800 hover:text-gray-900 hover:bg-gray-50"
               }`}
               onMouseEnter={(e) => {
                 const link = e.currentTarget;
@@ -466,26 +447,25 @@ const Header = () => {
             </Link>
           ))}
 
-          <button 
-            className="mt-8 w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-4 rounded-xl font-medium relative overflow-hidden group"
+          <button
+            className="mt-8 w-full bg-gray-900 text-white px-6 py-4 rounded-full font-medium relative overflow-hidden group"
             onMouseEnter={(e) => {
               const button = e.currentTarget;
               const overlay = button.querySelector('.mobile-button-overlay');
               const text = button.querySelector('.mobile-button-text');
-              
+
               gsap.to(button, {
                 scale: 1.02,
-                boxShadow: '0 8px 25px rgba(252, 56, 97, 0.3)',
                 duration: 0.3,
                 ease: "power2.out"
               });
-              
+
               gsap.to(overlay, {
                 scaleX: 1,
                 duration: 0.4,
                 ease: "power2.out"
               });
-              
+
               gsap.to(text, {
                 y: -1,
                 duration: 0.3,
@@ -496,20 +476,19 @@ const Header = () => {
               const button = e.currentTarget;
               const overlay = button.querySelector('.mobile-button-overlay');
               const text = button.querySelector('.mobile-button-text');
-              
+
               gsap.to(button, {
                 scale: 1,
-                boxShadow: '0 4px 15px rgba(252, 56, 97, 0.2)',
                 duration: 0.3,
                 ease: "power2.out"
               });
-              
+
               gsap.to(overlay, {
                 scaleX: 0,
                 duration: 0.3,
                 ease: "power2.out"
               });
-              
+
               gsap.to(text, {
                 y: 0,
                 duration: 0.3,
@@ -517,8 +496,8 @@ const Header = () => {
               });
             }}
           >
-            <span className="mobile-button-text relative z-10">Free Consultation</span>
-            <span className="mobile-button-overlay absolute inset-0 bg-gradient-to-r from-primary-700 to-primary-800 scale-x-0 origin-left"></span>
+            <span className="mobile-button-text relative z-10">Get Started</span>
+            <span className="mobile-button-overlay absolute inset-0 bg-gray-800 scale-x-0 origin-left"></span>
           </button>
         </div>
       </div>

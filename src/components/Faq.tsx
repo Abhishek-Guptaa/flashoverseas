@@ -111,37 +111,35 @@ const Faq: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 flex items-center py-20"
+      className="py-20"
     >
-      <div className="max-w-5xl mx-auto px-6 w-full">
-        {/* Heading */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-light text-gray-900 mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg text-gray-600">
-            Everything you need to know about studying abroad with Flash Overseas
+          <p className="text-lg text-gray-500">
+            Common questions about studying abroad
           </p>
         </div>
 
-        {/* FAQ Items */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           {faqs.map((faq, index) => (
             <div
               key={index}
               ref={(el) => {
                 if (el) itemsRef.current[index] = el;
               }}
-              className="border border-gray-200 rounded-xl overflow-hidden shadow-md bg-white"
+              className="border border-gray-200 rounded-2xl overflow-hidden bg-white"
             >
               <button
                 onClick={() => toggleFaq(index)}
-                className="w-full flex justify-between items-center px-5 py-4 text-left text-gray-800 font-medium hover:bg-gray-50 transition-colors"
+                className="w-full flex justify-between items-center px-6 py-5 text-left text-gray-900 font-normal hover:bg-gray-50 transition-colors"
               >
                 {faq.question}
                 <ChevronDown
-                  className={`w-5 h-5 transform transition-transform duration-300 ${
-                    openIndex === index ? "rotate-180 text-primary-600" : ""
+                  className={`w-5 h-5 transform transition-transform duration-300 flex-shrink-0 ml-4 ${
+                    openIndex === index ? "rotate-180" : ""
                   }`}
                 />
               </button>
@@ -150,7 +148,7 @@ const Faq: React.FC = () => {
                   openIndex === index ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
-                <div className="px-5 py-3 text-gray-600 text-sm bg-gray-50">
+                <div className="px-6 py-4 text-gray-500 text-sm leading-relaxed">
                   {faq.answer}
                 </div>
               </div>

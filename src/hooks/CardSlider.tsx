@@ -56,28 +56,26 @@ const CardSlider = () => {
         inView ? "opacity-100" : "opacity-0"
       }`}
     >
-      {/* Card container */}
-      <div className="relative h-40 flex items-center justify-center">
+      <div className="relative h-48 flex items-center justify-center">
         {steps.map((step, idx) => (
           <div
             key={idx}
-            className={`absolute inset-0 flex flex-col justify-center items-center text-center p-6 rounded-xl shadow-md bg-white transition-opacity duration-700 ease-in-out ${
+            className={`absolute inset-0 flex flex-col justify-center items-center text-center p-8 rounded-2xl bg-white border border-gray-200 transition-opacity duration-700 ease-in-out ${
               active === idx ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           >
-            <h3 className="text-lg font-bold text-primary-700">{step.title}</h3>
-            <p className="mt-2 text-gray-600">{step.description}</p>
+            <h3 className="text-xl font-normal text-gray-900 mb-2">{step.title}</h3>
+            <p className="text-sm text-gray-500 leading-relaxed">{step.description}</p>
           </div>
         ))}
       </div>
 
-      {/* Dots */}
-      <div className="flex justify-center mt-4 space-x-2">
+      <div className="flex justify-center mt-6 space-x-2">
         {steps.map((_, idx) => (
           <div
             key={idx}
-            className={`w-3 h-3 rounded-full transition ${
-              active === idx ? "bg-primary-600" : "bg-gray-300"
+            className={`h-1 rounded-full transition-all duration-300 ${
+              active === idx ? "w-8 bg-gray-900" : "w-1 bg-gray-300"
             }`}
           />
         ))}

@@ -116,26 +116,26 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="bg-white">
       <Hero />
 
       {/* Quick Stats Section */}
-      <section className="py-16 bg-white">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-12">
             {stats.map((stat, index) => (
               <div
                 key={index}
                 ref={(el) => (statsRef.current[index] = el!)}
-                className="text-center p-8 bg-primary-50 rounded-xl opacity-0"
+                className="text-center opacity-0"
               >
-                <div className="text-primary-600 flex justify-center mb-4">
+                <div className="text-gray-900 flex justify-center mb-3">
                   {stat.icon}
                 </div>
-                <div className="text-3xl font-bold text-secondary-900 mb-2">
+                <div className="text-4xl font-light text-gray-900 mb-2">
                   <span className="counter">0</span>
                 </div>
-                <div className="text-secondary-600">{stat.label}</div>
+                <div className="text-sm text-gray-500 uppercase tracking-wide">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -143,89 +143,72 @@ const Home: React.FC = () => {
       </section>
 
       {/* Quick Services Section */}
-      <section className="p-16">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-secondary-900 mb-4">
-              Our Core Services
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-light text-gray-900 mb-4">
+              Our Services
             </h2>
-            <p className="text-xl text-secondary-600">
-              Comprehensive support for your overseas journey
+            <p className="text-lg text-gray-500">
+              Everything you need for studying abroad
             </p>
           </div>
-       
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {quickServices.map((service, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white p-8 rounded-2xl hover:shadow-lg transition-all duration-300 border border-gray-100"
               >
-                <h3 className="text-xl font-semibold text-secondary-900 mb-3">
+                <h3 className="text-xl font-normal text-gray-900 mb-3">
                   {service.title}
                 </h3>
-                <p className="text-secondary-600 mb-4">{service.description}</p>
+                <p className="text-gray-500 mb-4 text-sm leading-relaxed">{service.description}</p>
                 <a
                   href={service.link}
-                  className="text-primary-600 hover:text-primary-700 font-medium flex items-center space-x-2"
+                  className="text-gray-900 font-medium flex items-center space-x-2 text-sm group"
                 >
                   <span>Learn More</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
             ))}
-            {/* More Services Icon Button */}
-            <div className="flex justify-center items-center  w-full">
-              <a
-                href="/services"
-                className="flex items-center justify-center w-12 h-12 bg-primary-600 text-white rounded-full shadow hover:bg-primary-700 transition-colors"
-                title="See more services"
-              >
-                <ArrowRight className="w-6 h-6" />
-              </a>
-            </div>
           </div>
         </div>
       </section>
 
       {/* Why choose us */}
-      <section className="py-16 bg-white">
+      <section className="py-20 bg-white">
         <WhyChooseUs/>
-      </section> 
-      
-      {/* Form Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FormSection />
-        </div>
       </section>
 
+      {/* Form Section */}
+      <FormSection />
+
       {/* Steps Section */}
-      <section ref={stepsSectionRef} className="pt-0 pb-16 opacity-0">
+      <section ref={stepsSectionRef} className="py-20 bg-white opacity-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            {/* Left column: text */}
+          <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl font-medium text-black mb-4">
-                Your dream future in Abroad is <br /> just 4 steps away
+              <h2 className="text-4xl font-light text-gray-900 mb-4">
+                Your journey in 4 simple steps
               </h2>
-              <p className="text-gray-500 mb-8">
-                Here's how we make it simple for you
+              <p className="text-gray-500 mb-8 text-lg">
+                We make studying abroad simple and stress-free
               </p>
-              <button className="px-6 py-2 bg-primary-600 hover:scale-95 transition-transform duration-200 text-white rounded">
-                Schedule a Call
+              <button className="px-8 py-3.5 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-all duration-300 font-medium">
+                Get Started
               </button>
             </div>
 
-            {/* Right column: CardSlider */}
             <div>
               <CardSlider />
             </div>
-
           </div>
         </div>
       </section>
-      <section>
+
+      <section className="bg-gray-50">
         <Faq/>
       </section>
     </div>
