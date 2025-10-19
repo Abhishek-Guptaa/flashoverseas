@@ -121,6 +121,9 @@ const FormSection: React.FC = () => {
                 I agree to receive updates via email, phone, and WhatsApp
               </p>
             </div>
+            {errors.consent && (
+              <p className="text-red-500 text-xs mt-1">{errors.consent}</p>
+            )}
 
             <div className="pt-2">
               <button
@@ -138,3 +141,4 @@ const FormSection: React.FC = () => {
 };
 
 export default FormSection;
+

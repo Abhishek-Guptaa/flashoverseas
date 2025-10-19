@@ -1,0 +1,23 @@
+
+/*
+ * SMTP Integration Instructions:
+ * 
+ * 1. Install email service package:
+ *    npm install nodemailer
+ * 
+ * 2. Create email service file (e.g., src/services/emailService.ts):
+ *    - Configure SMTP settings with your domain
+ *    - Create sendEmail function
+ *    - Handle form data formatting
+ * 
+ * 3. Replace the handleSubmit function below with:
+ *    - Import your email service
+ *    - Call sendEmail(formData) instead of alert
+ *    - Handle success/error responses properly
+ * 
+ * 4. Add environment variables for SMTP credentials:
+ *    - SMTP_HOST
+ *    - SMTP_PORT
+ *    - SMTP_USER
+ *    - SMTP_PASS
+ */

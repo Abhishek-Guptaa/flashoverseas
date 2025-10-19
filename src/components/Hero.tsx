@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { ArrowRight, Play } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 
 const Hero = () => {
@@ -26,7 +26,6 @@ const Hero = () => {
 
   // ===== STATE =====
   const [currentText, setCurrentText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   // ===== TYPEWRITER EFFECT =====
   useEffect(() => {
@@ -73,35 +72,87 @@ const Hero = () => {
     };
   }, []);
 
-  // ===== INITIAL ANIMATION =====
+  // ===== SMOOTH INITIAL ANIMATION =====
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline();
+      // Set initial states for smooth entrance
+      gsap.set([headingRef.current, paraRef.current, btnsRef.current], {
+        opacity: 0,
+        y: 60,
+        scale: 0.95
+      });
       
-      tl.from(headingRef.current, { 
-        opacity: 0, 
-        y: 40, 
-        duration: 1,
-        ease: "power2.out"
+      gsap.set(imgRef.current, {
+        opacity: 0,
+        scale: 0.8,
+        rotation: 5
+      });
+      
+      gsap.set(destinationRef.current, {
+        opacity: 0,
+        y: 20
+      });
+      
+      // Create ultra-smooth timeline
+      const tl = gsap.timeline({
+        defaults: {
+          ease: "power3.out"
+        }
+      });
+      
+      // Hero entrance sequence with perfect timing
+      tl.to(headingRef.current, { 
+        opacity: 1, 
+        y: 0,
+        scale: 1,
+        duration: 1.2,
+        ease: "power3.out"
       })
-      .from(imgRef.current, { 
-        opacity: 0, 
-        scale: 0.95, 
-        duration: 1,
-        ease: "power2.out"
-      }, "-=0.7")
-      .from(paraRef.current, { 
-        opacity: 0, 
-        y: 40, 
-        duration: 1,
-        ease: "power2.out"
-      }, "-=0.7")
-      .from(btnsRef.current, { 
-        opacity: 0, 
-        y: 40, 
-        duration: 1,
-        ease: "power2.out"
-      }, "-=0.7");
+      .to(imgRef.current, { 
+        opacity: 1, 
+        scale: 1,
+        rotation: 0,
+        duration: 1.4,
+        ease: "power3.out"
+      }, "-=0.8")
+      .to(paraRef.current, { 
+        opacity: 1, 
+        y: 0,
+        scale: 1,
+        duration: 1.0,
+        ease: "power3.out"
+      }, "-=0.6")
+      .to(btnsRef.current, { 
+        opacity: 1, 
+        y: 0,
+        scale: 1,
+        duration: 1.0,
+        ease: "power3.out"
+      }, "-=0.4")
+      .to(destinationRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out"
+      }, "-=0.2");
+      
+      // Add subtle floating animation to image
+      gsap.to(imgRef.current, {
+        y: -10,
+        duration: 3,
+        ease: "power1.inOut",
+        yoyo: true,
+        repeat: -1
+      });
+      
+      // Add gentle pulse to accent layers
+      gsap.to(".accent-layer", {
+        scale: 1.02,
+        duration: 4,
+        ease: "power1.inOut",
+        yoyo: true,
+        repeat: -1
+      });
     });
 
     return () => ctx.revert();

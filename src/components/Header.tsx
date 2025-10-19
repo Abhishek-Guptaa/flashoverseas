@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, BookOpen, GraduationCap, FileText, Award } from "lucide-react";
 import { gsap } from "gsap";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [dropdownTimeout, setDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
   const location = useLocation();
   const menuRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<HTMLAnchorElement[]>([]);
@@ -13,12 +14,28 @@ const Header = () => {
   const closeIconRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const logoRef = useRef<HTMLAnchorElement>(null);
+  const servicesDropdownRef = useRef<HTMLDivElement>(null);
 
   const isActive = (path: string) => {
     if (path === "/") {
       return location.pathname === "/";
     }
     return location.pathname.startsWith(path);
+  };
+
+  const handleDropdownMouseEnter = () => {
+    if (dropdownTimeout) {
+      clearTimeout(dropdownTimeout);
+      setDropdownTimeout(null);
+    }
+    setIsServicesDropdownOpen(true);
+  };
+
+  const handleDropdownMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsServicesDropdownOpen(false);
+    }, 150); // Small delay to prevent flickering
+    setDropdownTimeout(timeout);
   };
 
   // Optimized scroll detection for navbar effects
@@ -34,8 +51,6 @@ const Header = () => {
           // Only update if scroll position changed significantly
           if (Math.abs(scrollTop - lastScrollY) > 5) {
             const scrollProgress = Math.min(scrollTop / 100, 1);
-            
-            setIsScrolled(scrollTop > 20);
             
             // Smooth logo animation with spring physics
             if (logoRef.current) {
@@ -184,11 +199,84 @@ const Header = () => {
     }
   }, [isMenuOpen]);
 
+  // Services dropdown animation
+  useEffect(() => {
+    if (!servicesDropdownRef.current) return;
+
+    if (isServicesDropdownOpen) {
+      gsap.fromTo(servicesDropdownRef.current, 
+        { 
+          opacity: 0, 
+          y: -10, 
+          scale: 0.95 
+        },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        }
+      );
+    } else {
+      gsap.to(servicesDropdownRef.current, {
+        opacity: 0,
+        y: -10,
+        scale: 0.95,
+        duration: 0.2,
+        ease: "power2.in"
+      });
+    }
+  }, [isServicesDropdownOpen]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (dropdownTimeout) {
+        clearTimeout(dropdownTimeout);
+      }
+    };
+  }, [dropdownTimeout]);
+
+  // Keep a CSS variable with the header height so other components can center themselves
+  useEffect(() => {
+    const setHeaderHeight = () => {
+      if (headerRef.current) {
+        const h = headerRef.current.getBoundingClientRect().height;
+        document.documentElement.style.setProperty('--header-height', `${h}px`);
+      }
+    };
+
+    setHeaderHeight();
+
+    // Observe header size changes (logo scaling, responsive changes)
+    let ro: ResizeObserver | null = null;
+    try {
+      ro = new ResizeObserver(setHeaderHeight);
+      if (headerRef.current) ro.observe(headerRef.current);
+    } catch (e) {
+      // ResizeObserver may not be available in some test environments; fallback to resize event
+    }
+
+    window.addEventListener('resize', setHeaderHeight, { passive: true });
+    return () => {
+      window.removeEventListener('resize', setHeaderHeight);
+      if (ro && headerRef.current) ro.disconnect();
+    };
+  }, []);
+
+  const servicesDropdown = [
+    { to: "/test-preparation", label: "Test Preparation", icon: BookOpen },
+    { to: "/admission-guidance", label: "Admission Guidance", icon: GraduationCap },
+    { to: "/visa-assistance", label: "Visa Assistance", icon: FileText },
+    { to: "/financial-assistance", label: "Financial Assistance", icon: Award },
+  ];
+
   const mobileLinks = [
     { to: "/", label: "Home" },
-    { to: "/services", label: "Services" },
-    { to: "/destinations", label: "Destinations" },
     { to: "/about", label: "About" },
+    { to: "/destinations", label: "Destinations" },
+    { to: "/blog", label: "Blog" },
     { to: "/testimonials", label: "Testimonials" },
     { to: "/contact", label: "Contact" },
   ];
@@ -211,25 +299,7 @@ const Header = () => {
             <Link 
               ref={logoRef}
               to="/" 
-              className="flex items-center space-x-2 group"
-              onMouseEnter={() => {
-                if (logoRef.current) {
-                  gsap.to(logoRef.current, {
-                    scale: 1.05,
-                    duration: 0.3,
-                    ease: "power2.out"
-                  });
-                }
-              }}
-              onMouseLeave={() => {
-                if (logoRef.current) {
-                  gsap.to(logoRef.current, {
-                    scale: 1,
-                    duration: 0.3,
-                    ease: "power2.out"
-                  });
-                }
-              }}
+              className="flex items-center space-x-2 group hover:scale-105 transition-transform duration-200"
             >
               <img
                 src="/Logo.png"
@@ -242,7 +312,86 @@ const Header = () => {
           {/* Desktop Menu */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
-              {mobileLinks.map((link, i) => (
+              {/* Home Link */}
+              <Link
+                to="/"
+                className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                  isActive("/")
+                    ? "text-primary-600"
+                    : "text-gray-700 hover:text-primary-600"
+                }`}
+              >
+                Home
+                {/* Simple underline animation */}
+                <span className={`absolute bottom-0 left-0 h-0.5 bg-primary-600 transition-all duration-300 ${
+                  isActive("/") ? 'w-full' : 'w-0 group-hover:w-full'
+                }`}></span>
+              </Link>
+
+              {/* About Link */}
+              <Link
+                to="/about"
+                className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                  isActive("/about")
+                    ? "text-primary-600"
+                    : "text-gray-700 hover:text-primary-600"
+                }`}
+              >
+                About
+                {/* Simple underline animation */}
+                <span className={`absolute bottom-0 left-0 h-0.5 bg-primary-600 transition-all duration-300 ${
+                  isActive("/about") ? 'w-full' : 'w-0 group-hover:w-full'
+                }`}></span>
+              </Link>
+
+              {/* Services Dropdown */}
+              <div 
+                className="relative"
+                onMouseEnter={handleDropdownMouseEnter}
+                onMouseLeave={handleDropdownMouseLeave}
+              >
+                <button
+                  className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 flex items-center space-x-1 ${
+                    location.pathname.startsWith('/test-preparation') || 
+                    location.pathname.startsWith('/admission-guidance') ||
+                    location.pathname.startsWith('/visa-assistance') ||
+                    location.pathname.startsWith('/financial-assistance')
+                      ? "text-primary-600"
+                      : "text-gray-700 hover:text-primary-600"
+                  }`}
+                >
+                  <span>Services</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
+                    isServicesDropdownOpen ? 'rotate-180' : ''
+                  }`} />
+                </button>
+                
+                {/* Dropdown Menu - No gap between button and dropdown */}
+                {isServicesDropdownOpen && (
+                  <div
+                    ref={servicesDropdownRef}
+                    className="absolute top-full left-0 w-64 bg-white rounded-xl shadow-lg border border-slate-200 py-2 z-50"
+                    style={{ marginTop: '0px' }}
+                  >
+                    {servicesDropdown.map((service, index) => {
+                      const IconComponent = service.icon;
+                      return (
+                        <Link
+                          key={index}
+                          to={service.to}
+                          className="flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors duration-200"
+                        >
+                          <IconComponent className="w-5 h-5 text-primary-600" />
+                          <span>{service.label}</span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* Other Navigation Links */}
+              {mobileLinks.slice(2).map((link, i) => (
                 <Link
                   key={i}
                   to={link.to}
@@ -335,25 +484,9 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <div 
-            className={`md:hidden relative w-10 h-10 rounded-lg group transition-all duration-300 z-[60] ${
-              isMenuOpen ? 'bg-primary-100' : 'bg-gray-50'
+            className={`md:hidden relative w-10 h-10 rounded-lg group transition-all duration-200 z-[60] hover:scale-105 ${
+              isMenuOpen ? 'bg-primary-100' : 'bg-gray-50 hover:bg-gray-100'
             }`}
-            onMouseEnter={(e) => {
-              gsap.to(e.currentTarget, {
-                backgroundColor: isMenuOpen ? '#fce7eb' : '#f3f4f6',
-                scale: 1.05,
-                duration: 0.3,
-                ease: "power2.out"
-              });
-            }}
-            onMouseLeave={(e) => {
-              gsap.to(e.currentTarget, {
-                backgroundColor: isMenuOpen ? '#fce7eb' : '#f9fafb',
-                scale: 1,
-                duration: 0.3,
-                ease: "power2.out"
-              });
-            }}
           >
             {/* Burger icon */}
             <div
@@ -395,12 +528,41 @@ const Header = () => {
       >
         {/* Links */}
         <div className="flex flex-col space-y-6 mt-16">
+          {/* Services Dropdown for Mobile */}
+          <div className="space-y-2">
+            <div className="text-xl font-medium py-3 px-4 text-gray-800 border-b border-gray-200">
+              Services
+            </div>
+            {servicesDropdown.map((service, i) => {
+              const IconComponent = service.icon;
+              return (
+                <Link
+                  key={i}
+                  to={service.to}
+                  ref={(el) => {
+                    if (el) linkRefs.current[i] = el;
+                  }}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`flex items-center space-x-3 text-lg py-3 px-6 rounded-xl transition-all duration-200 ${
+                    isActive(service.to)
+                      ? "text-primary-600 bg-primary-50"
+                      : "text-gray-700 hover:text-primary-600 hover:bg-gray-50"
+                  }`}
+                >
+                  <IconComponent className="w-5 h-5 text-primary-600" />
+                  <span>{service.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Other Navigation Links */}
           {mobileLinks.map((link, i) => (
             <Link
-              key={i}
+              key={i + servicesDropdown.length}
               to={link.to}
               ref={(el) => {
-                if (el) linkRefs.current[i] = el;
+                if (el) linkRefs.current[i + servicesDropdown.length] = el;
               }}
               onClick={() => setIsMenuOpen(false)}
               className={`relative block text-xl font-normal py-3 px-4 rounded-xl group ${
@@ -408,42 +570,8 @@ const Header = () => {
                   ? "text-gray-900 bg-gray-100"
                   : "text-gray-800 hover:text-gray-900 hover:bg-gray-50"
               }`}
-              onMouseEnter={(e) => {
-                const link = e.currentTarget;
-                const background = link.querySelector('.mobile-hover-bg');
-                
-                gsap.to(link, {
-                  scale: 1.02,
-                  duration: 0.3,
-                  ease: "power2.out"
-                });
-                
-                gsap.to(background, {
-                  scale: 1,
-                  duration: 0.3,
-                  ease: "back.out(1.7)"
-                });
-              }}
-              onMouseLeave={(e) => {
-                const link = e.currentTarget;
-                const background = link.querySelector('.mobile-hover-bg');
-                
-                gsap.to(link, {
-                  scale: 1,
-                  duration: 0.3,
-                  ease: "power2.out"
-                });
-                
-                gsap.to(background, {
-                  scale: 0,
-                  duration: 0.2,
-                  ease: "power2.out"
-                });
-              }}
             >
               {link.label}
-              {/* Beautiful hover effect */}
-              <span className="mobile-hover-bg absolute inset-0 bg-gradient-to-r from-primary-50 to-transparent rounded-xl scale-0 -z-10"></span>
             </Link>
           ))}
 

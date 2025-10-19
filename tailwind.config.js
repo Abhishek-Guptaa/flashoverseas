@@ -7,6 +7,37 @@ export default {
         'primary': ['Inter', 'sans-serif'],
         'secondary': ['Poppins', 'sans-serif'],
       },
+      fontSize: {
+        // Main Headings (H1) - Consistent across all pages
+        'h1': ['2.5rem', { lineHeight: '1.2', fontWeight: '600' }], // 40px
+        'h1-lg': ['3rem', { lineHeight: '1.1', fontWeight: '600' }], // 48px
+        'h1-xl': ['3.5rem', { lineHeight: '1.1', fontWeight: '600' }], // 56px
+        
+        // Section Headings (H2) - Consistent across all pages
+        'h2': ['2rem', { lineHeight: '1.3', fontWeight: '600' }], // 32px
+        'h2-lg': ['2.25rem', { lineHeight: '1.2', fontWeight: '600' }], // 36px
+        'h2-xl': ['2.5rem', { lineHeight: '1.2', fontWeight: '600' }], // 40px
+        
+        // Subsection Headings (H3) - Consistent across all pages
+        'h3': ['1.5rem', { lineHeight: '1.4', fontWeight: '600' }], // 24px
+        'h3-lg': ['1.75rem', { lineHeight: '1.3', fontWeight: '600' }], // 28px
+        
+        // Card/Component Titles (H4) - Consistent across all pages
+        'h4': ['1.25rem', { lineHeight: '1.4', fontWeight: '600' }], // 20px
+        'h4-lg': ['1.375rem', { lineHeight: '1.3', fontWeight: '600' }], // 22px
+        
+        // Body Text - Consistent across all pages
+        'body': ['1rem', { lineHeight: '1.6', fontWeight: '400' }], // 16px
+        'body-lg': ['1.125rem', { lineHeight: '1.6', fontWeight: '400' }], // 18px
+        
+        // Small Text - Consistent across all pages
+        'small': ['0.875rem', { lineHeight: '1.5', fontWeight: '400' }], // 14px
+        'small-lg': ['0.9375rem', { lineHeight: '1.5', fontWeight: '400' }], // 15px
+        
+        // Button Text - Consistent across all pages
+        'btn': ['0.875rem', { lineHeight: '1.4', fontWeight: '500' }], // 14px
+        'btn-lg': ['1rem', { lineHeight: '1.4', fontWeight: '500' }], // 16px
+      },
       colors: {
         primary: {
             50:  "var(--primary-50)",

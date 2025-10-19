@@ -38,25 +38,25 @@ const faqs: FaqItem[] = [
       "Simply fill out the contact form on our website or schedule a call with our counselors. We’ll guide you through every step of the process.",
   },
   {
-  question: "Is the consultation free?",
-  answer:
-    "Yes, our first consultation session is completely free. We’ll assess your profile and suggest the best path for your study abroad plans.",
-},
-{
-  question: "Do you help with scholarships?",
-  answer:
-    "Definitely. We guide students in finding scholarships and financial aid opportunities that suit their profile and chosen university.",
-},
-{
-  question: "How long does the application process take?",
-  answer:
-    "On average, the application process takes 4–8 weeks depending on the university and country requirements. Our team ensures it’s as smooth and quick as possible.",
-},
-{
-  question: "Can I work while studying abroad?",
-  answer:
-    "Yes! Many countries allow part-time work for international students. We guide you with regulations and opportunities once you’re admitted.",
-},
+    question: "Is the consultation free?",
+    answer:
+      "Yes, our first consultation session is completely free. We'll assess your profile and suggest the best path for your study abroad plans.",
+  },
+  {
+    question: "Do you help with scholarships?",
+    answer:
+      "Definitely. We guide students in finding scholarships and financial aid opportunities that suit their profile and chosen university.",
+  },
+  {
+    question: "How long does the application process take?",
+    answer:
+      "On average, the application process takes 4–8 weeks depending on the university and country requirements. Our team ensures it's as smooth and quick as possible.",
+  },
+  {
+    question: "Can I work while studying abroad?",
+    answer:
+      "Yes! Many countries allow part-time work for international students. We guide you with regulations and opportunities once you're admitted.",
+  },
 
 ];
 
