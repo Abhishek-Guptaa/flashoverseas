@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 
+
 const Hero = () => {
   // ===== REFS =====
   const headingRef = useRef<HTMLHeadingElement>(null);

@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MessageCircle } from "lucide-react";
 import { sendEmail } from '../services/emailService';
 
+
 gsap.registerPlugin(ScrollTrigger);
 
 const FormSection: React.FC = () => {
