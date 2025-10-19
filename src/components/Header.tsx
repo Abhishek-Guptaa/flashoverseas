@@ -304,7 +304,18 @@ const Header = () => {
               <img
                 src="/Logo.png"
                 alt="Flash Overseas Logo"
-                className="h-auto w-36"
+                className="h-auto w-36 max-w-none object-contain"
+                style={{ display: 'block', visibility: 'visible', opacity: 1 }}
+                onError={(e) => {
+                  console.error('Logo failed to load:', e);
+                  const target = e.target as HTMLImageElement;
+                  target.style.border = '2px solid red';
+                  target.style.backgroundColor = 'yellow';
+                  target.alt = 'LOGO ERROR';
+                }}
+                onLoad={() => {
+                  console.log('Logo loaded successfully');
+                }}
               />
             </Link>
           </div>
