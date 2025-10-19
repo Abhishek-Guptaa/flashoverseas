@@ -101,7 +101,7 @@ const FormSection: React.FC = () => {
             <div className="relative bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center p-8">
               <div className="relative w-full max-w-md">
                 {/* Boy graduation image */}
-                <div className="aspect-[4/5] rounded-2xl overflow-hidden relative bg-gradient-to-br from-primary-200 to-white shadow-lg">
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden relative bg-gradient-to-br from-primary-100 to-white shadow-lg">
                   <img 
                     src="/boyimg.png" 
                     alt="Student success story"

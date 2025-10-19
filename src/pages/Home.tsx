@@ -346,7 +346,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section className="bg-gradient-to-b from-white to-primary-200">
+      <section className="bg-gradient-to-b from-white to-primary-100">
         <Faq/>
       </section>
     </div>
