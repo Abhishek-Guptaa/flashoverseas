@@ -395,89 +395,24 @@ const Header = () => {
                 <Link
                   key={i}
                   to={link.to}
-                  className={`relative px-3 py-2 text-sm font-medium transition-colors group ${
+                  className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                     isActive(link.to)
-                      ? "text-gray-900"
-                      : "text-gray-600 hover:text-gray-900"
+                      ? "text-primary-600"
+                      : "text-gray-700 hover:text-primary-600"
                   }`}
-                  onMouseEnter={(e) => {
-                    const underline = e.currentTarget.querySelector('.underline');
-
-                    gsap.to(underline, {
-                      width: '100%',
-                      duration: 0.3,
-                      ease: "power2.out"
-                    });
-                  }}
-                  onMouseLeave={(e) => {
-                    const underline = e.currentTarget.querySelector('.underline');
-
-                    if (!isActive(link.to)) {
-                      gsap.to(underline, {
-                        width: '0%',
-                        duration: 0.3,
-                        ease: "power2.out"
-                      });
-                    }
-                  }}
                 >
                   {link.label}
-                  <span className={`underline absolute bottom-0 left-0 h-0.5 bg-gray-900 ${
-                    isActive(link.to) ? 'w-full' : 'w-0'
+                  {/* Simple underline animation */}
+                  <span className={`absolute bottom-0 left-0 h-0.5 bg-primary-600 transition-all duration-300 ${
+                    isActive(link.to) ? 'w-full' : 'w-0 group-hover:w-full'
                   }`}></span>
                 </Link>
               ))}
-              <button
-                className="relative bg-gray-900 text-white px-6 py-2 rounded-full group overflow-hidden font-medium"
-                onMouseEnter={(e) => {
-                  const button = e.currentTarget;
-                  const overlay = button.querySelector('.button-overlay');
-                  const text = button.querySelector('.button-text');
 
-                  gsap.to(button, {
-                    scale: 1.02,
-                    duration: 0.3,
-                    ease: "power2.out"
-                  });
-
-                  gsap.to(overlay, {
-                    scaleX: 1,
-                    duration: 0.4,
-                    ease: "power2.out"
-                  });
-
-                  gsap.to(text, {
-                    y: -1,
-                    duration: 0.3,
-                    ease: "power2.out"
-                  });
-                }}
-                onMouseLeave={(e) => {
-                  const button = e.currentTarget;
-                  const overlay = button.querySelector('.button-overlay');
-                  const text = button.querySelector('.button-text');
-
-                  gsap.to(button, {
-                    scale: 1,
-                    duration: 0.3,
-                    ease: "power2.out"
-                  });
-
-                  gsap.to(overlay, {
-                    scaleX: 0,
-                    duration: 0.3,
-                    ease: "power2.out"
-                  });
-
-                  gsap.to(text, {
-                    y: 0,
-                    duration: 0.3,
-                    ease: "power2.out"
-                  });
-                }}
+              <button 
+                className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg"
               >
-                <span className="button-text relative z-10">Get Started</span>
-                <span className="button-overlay absolute inset-0 bg-gray-800 scale-x-0 origin-left"></span>
+                Free Consultation
               </button>
             </div>
           </div>
@@ -565,67 +500,20 @@ const Header = () => {
                 if (el) linkRefs.current[i + servicesDropdown.length] = el;
               }}
               onClick={() => setIsMenuOpen(false)}
-              className={`relative block text-xl font-normal py-3 px-4 rounded-xl group ${
+              className={`block text-xl font-medium py-3 px-4 rounded-xl transition-all duration-200 ${
                 isActive(link.to)
-                  ? "text-gray-900 bg-gray-100"
-                  : "text-gray-800 hover:text-gray-900 hover:bg-gray-50"
+                  ? "text-primary-600 bg-primary-50"
+                  : "text-gray-800 hover:text-primary-600 hover:bg-gray-50"
               }`}
             >
               {link.label}
             </Link>
           ))}
 
-          <button
-            className="mt-8 w-full bg-gray-900 text-white px-6 py-4 rounded-full font-medium relative overflow-hidden group"
-            onMouseEnter={(e) => {
-              const button = e.currentTarget;
-              const overlay = button.querySelector('.mobile-button-overlay');
-              const text = button.querySelector('.mobile-button-text');
-
-              gsap.to(button, {
-                scale: 1.02,
-                duration: 0.3,
-                ease: "power2.out"
-              });
-
-              gsap.to(overlay, {
-                scaleX: 1,
-                duration: 0.4,
-                ease: "power2.out"
-              });
-
-              gsap.to(text, {
-                y: -1,
-                duration: 0.3,
-                ease: "power2.out"
-              });
-            }}
-            onMouseLeave={(e) => {
-              const button = e.currentTarget;
-              const overlay = button.querySelector('.mobile-button-overlay');
-              const text = button.querySelector('.mobile-button-text');
-
-              gsap.to(button, {
-                scale: 1,
-                duration: 0.3,
-                ease: "power2.out"
-              });
-
-              gsap.to(overlay, {
-                scaleX: 0,
-                duration: 0.3,
-                ease: "power2.out"
-              });
-
-              gsap.to(text, {
-                y: 0,
-                duration: 0.3,
-                ease: "power2.out"
-              });
-            }}
+          <button 
+            className="mt-8 w-full bg-primary-600 text-white px-6 py-4 rounded-xl font-medium hover:bg-primary-700 hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg"
           >
-            <span className="mobile-button-text relative z-10">Get Started</span>
-            <span className="mobile-button-overlay absolute inset-0 bg-gray-800 scale-x-0 origin-left"></span>
+            Free Consultation
           </button>
         </div>
       </div>

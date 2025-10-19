@@ -10,7 +10,6 @@ import { supabase, BlogPost as BlogPostType } from '../lib/supabase';
 gsap.registerPlugin(ScrollTrigger);
 
 // BlogPost interface is now imported from supabase.ts
-
 const BlogPostPage = () => {
   const { slug } = useParams();
   const heroRef = useRef<HTMLDivElement>(null);
@@ -60,7 +59,9 @@ const BlogPostPage = () => {
       tags: ['Canada', 'Study Abroad', 'Guide'],
       slug: 'complete-guide-study-abroad-canada-2024',
       featured: true,
-      read_time: 8
+      read_time: 8,
+      created_at: '2024-01-01T00:00:00Z',
+      updated_at: '2024-01-15T00:00:00Z',
     },
     {
       id: '2',
@@ -92,7 +93,9 @@ const BlogPostPage = () => {
       tags: ['IELTS', 'TOEFL', 'English Test'],
       slug: 'ielts-vs-toefl-which-test-should-you-take',
       featured: false,
-      read_time: 6
+      read_time: 6,
+      created_at: '2024-01-01T00:00:00Z',
+      updated_at: '2024-01-10T00:00:00Z',
     }
   ];
 
@@ -226,7 +229,6 @@ const BlogPostPage = () => {
         description={post.excerpt}
         keywords={post.tags.join(', ')}
         url={`https://flashoverseas.com/blog/${post.slug}`}
-        pageType="blog-post"
       />
       
       {/* Hero Section */}

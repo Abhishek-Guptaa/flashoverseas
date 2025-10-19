@@ -8,7 +8,8 @@ import CardSlider from "../hooks/CardSlider";
 import FormSection from "../components/FormSection";
 import Faq from "../components/Faq";
 import WhyChooseUs from "../components/WhyChooseUs";
-// SEO and Chatbot intentionally omitted on this page to avoid duplicate tags and side effects
+import SEO from "../components/SEO";
+import Chatbot from "../components/Chatbot";
 import FadeInSection from "../components/FadeInSection";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -179,64 +180,69 @@ const Home: React.FC = () => {
       <Hero />
 
 
-      {/* Quick Stats Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-12">
+      {/* Elegant Stats Section */}
+      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f9ff_1px,transparent_1px),linear-gradient(to_bottom,#f0f9ff_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-light text-slate-900 mb-4">
+              Trusted by <span className="text-primary-600 font-bold">Thousands</span> Worldwide
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Our proven track record speaks for itself
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
             {stats.map((stat, index) => (
-              <div
+              <motion.div
                 key={index}
-                ref={(el) => (statsRef.current[index] = el!)}
-                className="text-center opacity-0"
+                ref={(el) => {
+                  if (el) statsRef.current[index] = el;
+                }}
+                className="group relative bg-white/80 backdrop-blur-sm p-8 rounded-2xl border border-white/50 shadow-lg hover:shadow-2xl transition-all duration-500 opacity-0 hover:scale-105"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3 }}
               >
-                <div className="text-gray-900 flex justify-center mb-3">
-                  {stat.icon}
+                {/* Gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                
+                {/* Icon with animated background */}
+                <div className="relative flex justify-center mb-6">
+                  <div className="relative">
+                    <div className="w-16 h-16 bg-gradient-to-br from-primary-100 to-primary-200 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <div className="text-primary-600 group-hover:text-primary-700 transition-colors">
+                        {stat.icon}
+                      </div>
+                    </div>
+                    {/* Pulse effect */}
+                    <div className="absolute inset-0 w-16 h-16 bg-primary-200 rounded-2xl opacity-30 group-hover:animate-ping" />
+                  </div>
                 </div>
-                <div className="text-4xl font-light text-gray-900 mb-2">
-                  <span className="counter">0</span>
+                
+                {/* Counter with enhanced styling */}
+                <div className="text-center mb-4">
+                  <div className="text-5xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent mb-2">
+                    <span className="counter">0</span>
+                  </div>
+                  <div className="h-0.5 w-12 bg-gradient-to-r from-primary-400 to-primary-600 mx-auto mb-3 group-hover:w-16 transition-all duration-300" />
+                  <p className="text-slate-600 font-medium text-sm uppercase tracking-wider group-hover:text-slate-800 transition-colors">
+                    {stat.label}
+                  </p>
                 </div>
-                <div className="text-sm text-gray-500 uppercase tracking-wide">{stat.label}</div>
-              </div>
+                
+                {/* Bottom accent */}
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-gradient-to-r from-primary-400 to-primary-600 rounded-t-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-  {/* Quick Services Section */}
-  <FadeInSection>
-  <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light text-gray-900 mb-4">
-              Our Services
-            </h2>
-            <p className="text-lg text-gray-500">
-              Everything you need for studying abroad
-            </p>
-          </div>
+     
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {quickServices.map((service, index) => (
-              <div
-                key={index}
-                className="bg-white p-8 rounded-2xl hover:shadow-lg transition-all duration-300 border border-gray-100"
-              >
-                <h3 className="text-xl font-normal text-gray-900 mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-gray-500 mb-4 text-sm leading-relaxed">{service.description}</p>
-                <a
-                  href={service.link}
-                  className="text-gray-900 font-medium flex items-center space-x-2 text-sm group"
-                >
-                  <span>Learn More</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            ))}
-          </div>
-        </section>
-      </FadeInSection>
       {/* Core Services Section */}
       <FadeInSection>
         <section ref={servicesSectionRef} className="py-20 bg-primary-50">
@@ -245,7 +251,7 @@ const Home: React.FC = () => {
             <FadeInSection delay={0.1}>
               <div className="text-center mb-16">
                 <h2 className="text-4xl font-light text-slate-900 mb-4">
-                  Our <span className="font-semibold">Core Services</span>
+                  Our Core <span className="font-bold text-primary-600">Services</span>
                 </h2>
                 <p className="text-lg text-slate-600 max-w-2xl mx-auto">
                   Comprehensive support for your overseas journey
@@ -286,7 +292,7 @@ const Home: React.FC = () => {
                     {index + 1}
                   </motion.div>
                   
-                  <h3 className="text-xl font-semibold text-slate-900 mb-4 group-hover:text-primary-600 transition-colors">
+                  <h3 className="text-xl font-light text-slate-900 mb-4 group-hover:text-primary-600 transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-slate-600 mb-6 leading-relaxed">{service.description}</p>
@@ -322,10 +328,10 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-4xl font-light text-gray-900 mb-4">
-                Your journey in 4 simple steps
+              <h2 className="text-4xl font-light text-slate-900 mb-4">
+                Your journey in <span className="font-bold text-primary-600">4 simple steps</span>
               </h2>
-              <p className="text-gray-500 mb-8 text-lg">
+              <p className="text-lg text-slate-600 mb-8">
                 We make studying abroad simple and stress-free
               </p>
               <button className="px-8 py-3.5 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-all duration-300 font-medium">
@@ -340,7 +346,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section className="bg-gray-50">
+      <section className="bg-gradient-to-b from-white to-primary-200">
         <Faq/>
       </section>
     </div>

@@ -1,4 +1,4 @@
-// React import not required with new JSX runtime
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -18,14 +18,11 @@ import TermsAndConditions from './pages/TermsAndConditions';
 import Blog from './pages/Blog';
 import BlogPostPage from './pages/BlogPost';
 import Admin from './pages/Admin';
-import NotFound from './pages/NotFound';
-import { ToastProvider } from './components/ui/ToastProvider';
 import ScrollToTop from './hooks/ScrollToTop';
 
 function App() {
   return (
     <ErrorBoundary>
-      <ToastProvider>
       <Router>
         <ScrollToTop/>
         
@@ -52,14 +49,12 @@ function App() {
                 <Route path="/blog/:slug" element={<BlogPostPage />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<TermsAndConditions />} />
-                <Route path="*" element={<NotFound />} />
               </Routes>
               <Footer />
             </div>
           } />
         </Routes>
       </Router>
-      </ToastProvider>
     </ErrorBoundary>
   );
 }

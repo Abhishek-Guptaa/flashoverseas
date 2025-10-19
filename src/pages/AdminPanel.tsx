@@ -14,8 +14,6 @@ import {
   Tag,
   Image as ImageIcon
 } from 'lucide-react';
-import { useToast } from '../components/ui/ToastProvider';
-import RichTextEditor from '../components/RichTextEditor';
 
 interface BlogPost {
   id?: string;
@@ -32,7 +30,6 @@ interface BlogPost {
 }
 
 const AdminPanel: React.FC = () => {
-  const toast = useToast();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
@@ -53,66 +50,14 @@ const AdminPanel: React.FC = () => {
         return;
       }
 
-      // First try to find admin profile by matching the primary id
-      let adminData: any = null;
-      let error: any = null;
+      const { data: adminData, error } = await supabase
+        .from('admin_users')
+        .select('*')
+        .eq('id', user.id)
+        .single();
 
-      try {
-        const res = await supabase
-          .from('admin_users')
-          .select('*')
-          .eq('id', user.id)
-          .single();
-        adminData = (res as any).data;
-        error = (res as any).error;
-      } catch (e) {
-        // ignore, we'll attempt fallback
-        console.error('admin_users lookup by id threw:', e);
-        adminData = null;
-        error = e;
-      }
-
-      // If not found by id, try matching by email (handles cases where the table
-      // uses a different PK column like user_id or the row was created with email)
-      if (!adminData) {
-        const userEmail = user.email ?? '';
-        if (!userEmail) {
-          console.error('Authenticated user has no email to match admin_users');
-        } else {
-          try {
-            const res2 = await supabase
-              .from('admin_users')
-              .select('*')
-              .ilike('email', userEmail)
-              .single();
-            adminData = (res2 as any).data;
-            error = (res2 as any).error;
-          } catch (e) {
-            console.error('admin_users lookup by email threw:', e);
-            adminData = null;
-          }
-        }
-      }
-
-      if (error) {
-        console.error('Error checking admin_users:', error);
-        // If the error looks like a permission/RLS error, give a helpful message
-        toast.push({ type: 'error', message: 'Access denied. Unable to verify admin profile (permission error). Contact the site administrator.' });
-        await supabase.auth.signOut();
-        window.location.href = '/admin';
-        return;
-      }
-
-      if (!adminData) {
-        // No admin row was found for this user
-        toast.push({ type: 'error', message: 'Access denied. No admin profile found for your account. Contact the site administrator.' });
-        await supabase.auth.signOut();
-        window.location.href = '/admin';
-        return;
-      }
-
-      if (!adminData.is_approved) {
-        toast.push({ type: 'error', message: 'Access denied. Your account is not approved for admin access.' });
+      if (error || !adminData || !adminData.is_approved) {
+        alert('Access denied. Your account is not approved for admin access.');
         await supabase.auth.signOut();
         window.location.href = '/admin';
         return;
@@ -159,7 +104,6 @@ const AdminPanel: React.FC = () => {
       return data.publicUrl;
     } catch (error) {
       console.error('Error uploading image:', error);
-      toast.push({ type: 'error', message: 'Error uploading image' });
       throw error;
     } finally {
       setUploadingImage(false);
@@ -228,12 +172,12 @@ const AdminPanel: React.FC = () => {
       setTags('');
     } catch (error) {
       console.error('Error saving post:', error);
-      toast.push({ type: 'error', message: 'Error saving post' });
+      alert('Error saving post');
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm('Are you sure you want to delete this post?')) return;
+    if (!confirm('Are you sure you want to delete this post?')) return;
 
     try {
       const { error } = await supabase
@@ -242,11 +186,10 @@ const AdminPanel: React.FC = () => {
         .eq('id', id);
 
       if (error) throw error;
-      toast.push({ type: 'success', message: 'Post deleted' });
       await fetchPosts();
     } catch (error) {
       console.error('Error deleting post:', error);
-      toast.push({ type: 'error', message: 'Error deleting post' });
+      alert('Error deleting post');
     }
   };
 
@@ -287,12 +230,13 @@ const AdminPanel: React.FC = () => {
       <div className="bg-white py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
-            <Link to="/" className="flex items-center space-x-3 transition-transform duration-300 hover:scale-105" aria-label="Flash Overseas home">
+            <Link to="/" className="flex items-center space-x-3 transition-transform duration-300 hover:scale-105">
               <img 
                 src="/Logo.png" 
                 alt="Flash Overseas" 
                 className="h-12 w-auto"
               />
+              <span className="text-xl font-bold text-slate-900">Flash Overseas</span>
             </Link>
             <button
               onClick={async () => {
@@ -383,7 +327,7 @@ const AdminPanel: React.FC = () => {
         {/* Edit/Create Modal */}
         {editingPost && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto scrollbar-hide">
+            <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6 border-b border-slate-200">
                 <div className="flex justify-between items-center">
                   <h2 className="text-2xl font-bold text-slate-900">
@@ -501,12 +445,14 @@ const AdminPanel: React.FC = () => {
                 {/* Content */}
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Content
+                    Content (HTML)
                   </label>
-                  <RichTextEditor
+                  <textarea
                     value={editingPost.content}
-                    onChange={(content) => setEditingPost({ ...editingPost, content })}
-                    placeholder="Start writing your blog post content..."
+                    onChange={(e) => setEditingPost({ ...editingPost, content: e.target.value })}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    rows={15}
+                    placeholder="Enter post content in HTML format"
                   />
                 </div>
               </div>

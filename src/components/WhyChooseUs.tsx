@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CheckCircle, Users, Globe, Award } from "lucide-react";
@@ -58,7 +58,7 @@ const WhyChooseUs = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-light text-gray-900 mb-4">
-            Why Choose Us
+            Why Choose <span className="font-bold text-primary-600">Us</span>
           </h2>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto">
             Expert guidance for your overseas education journey

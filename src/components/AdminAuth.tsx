@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase, ADMIN_WHITELIST } from '../lib/supabase';
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, AlertCircle } from 'lucide-react';
 
 interface AdminAuthProps {
   onLogin: (user: any) => void;
@@ -15,7 +15,7 @@ const AdminAuth: React.FC<AdminAuthProps> = ({ onLogin }) => {
   const [error, setError] = useState('');
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [resetMessage, setResetMessage] = useState('');
-  // debugInfo removed for production
+  const [debugInfo, setDebugInfo] = useState<string[]>([]);
 
   useEffect(() => {
     // Check if user is already logged in
@@ -28,20 +28,21 @@ const AdminAuth: React.FC<AdminAuthProps> = ({ onLogin }) => {
     checkUser();
   }, [onLogin]);
 
-      const debugLog = (message: string) => {
-    console.log(message);
-  };
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
+      const debugLog = (message: string) => {
+        console.log(message);
+        setDebugInfo(prev => [...prev, `${new Date().toLocaleTimeString()}: ${message}`]);
+      };
+
       debugLog(`Attempting login with: ${email}`);
       
       // Test Supabase connection first
-      const { error: testError } = await supabase
+      const { data: testData, error: testError } = await supabase
         .from('admin_users')
         .select('count')
         .limit(1);
@@ -81,48 +82,28 @@ const AdminAuth: React.FC<AdminAuthProps> = ({ onLogin }) => {
         debugLog(`Admin profile check: ${JSON.stringify({ adminData: adminData?.email, adminError: adminError?.message })}`);
 
         if (adminError || !adminData) {
-          // If admin profile doesn't exist but email is whitelisted, attempt to create it
+          // If admin profile doesn't exist but email is whitelisted, create it
           if (ADMIN_WHITELIST.includes(email.toLowerCase())) {
             debugLog('Creating admin profile for whitelisted email');
-
-            // Try to create and immediately select the created row (some Supabase
-            // configs/policies may prevent client-side inserts; handle failures)
-            const { data: createdAdmin, error: createError } = await supabase
+            
+            const { error: createError } = await supabase
               .from('admin_users')
               .insert([
                 {
                   id: data.user.id,
                   email: data.user.email,
                   name: data.user.user_metadata?.name || 'Admin User',
-                  role: 'admin',
-                  // When creating from the whitelist, mark as approved so the admin
-                  // panel check (which requires `is_approved`) will allow access.
-                  is_approved: true
+                  role: 'admin'
                 }
-              ])
-              .select()
-              .single();
+              ]);
 
-            if (createError || !createdAdmin) {
-              debugLog(`❌ Error creating admin profile: ${createError?.message ?? 'unknown'}`);
-              // If creation failed (for example due to RLS), deny access rather than
-              // proceeding to the admin panel where the check will immediately reject.
-              await supabase.auth.signOut();
-              setError('Access denied. Unable to create admin profile — contact the site administrator.');
-              setLoading(false);
-              return;
+            if (createError) {
+              debugLog(`❌ Error creating admin profile: ${createError.message}`);
+              // Don't sign out, just continue with login
+            } else {
+              debugLog('✅ Admin profile created successfully');
             }
 
-            // If the created row exists, ensure it's approved before proceeding.
-            if (!createdAdmin.is_approved) {
-              debugLog('Created admin profile is not approved');
-              await supabase.auth.signOut();
-              setError('Access denied. Your admin account is pending approval.');
-              setLoading(false);
-              return;
-            }
-
-            debugLog('✅ Admin profile created and approved');
             debugLog('🎉 Login successful!');
             onLogin(data.user);
           } else {
@@ -133,16 +114,7 @@ const AdminAuth: React.FC<AdminAuthProps> = ({ onLogin }) => {
             return;
           }
         } else {
-          // Admin profile exists; ensure it's approved
-          if (!adminData.is_approved) {
-            debugLog('Admin profile found but not approved');
-            await supabase.auth.signOut();
-            setError('Access denied. Your account is not approved for admin access.');
-            setLoading(false);
-            return;
-          }
-
-          debugLog('✅ Admin profile found and approved, logging in');
+          debugLog('✅ Admin profile found, logging in');
           debugLog('🎉 Login successful!');
           onLogin(data.user);
         }
@@ -177,7 +149,10 @@ const AdminAuth: React.FC<AdminAuthProps> = ({ onLogin }) => {
     }
   };
 
-
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    window.location.reload();
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 to-blue-50 flex items-center justify-center p-4">
@@ -312,7 +287,25 @@ const AdminAuth: React.FC<AdminAuthProps> = ({ onLogin }) => {
             )}
           </div>
 
-          {/* Debug panel removed */}
+          {/* Debug Panel - Remove Later */}
+          {debugInfo.length > 0 && (
+            <div className="mt-6 p-4 bg-gray-100 border border-gray-300 rounded-lg">
+              <h3 className="text-sm font-bold text-gray-700 mb-2">🔍 Debug Info (Remove Later):</h3>
+              <div className="max-h-40 overflow-y-auto">
+                {debugInfo.map((info, index) => (
+                  <div key={index} className="text-xs text-gray-600 mb-1 font-mono">
+                    {info}
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={() => setDebugInfo([])}
+                className="mt-2 text-xs text-red-600 hover:text-red-800"
+              >
+                Clear Debug Info
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

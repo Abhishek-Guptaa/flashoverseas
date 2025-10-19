@@ -140,7 +140,6 @@ const Blog = () => {
         description="Stay updated with the latest study abroad news, tips, and comprehensive guides. Expert insights on university applications, visa processes, and student life abroad."
         keywords="study abroad blog, study abroad news, study abroad tips, university application guide, visa guide, student life abroad, study abroad advice, international education blog"
         url="https://flashoverseas.com/blog"
-        pageType="blog"
       />
       
       {/* Page Header */}

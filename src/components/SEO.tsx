@@ -10,7 +10,7 @@ interface SEOProps {
   type?: string;
   structuredData?: any;
   localBusiness?: boolean;
-  pageType?: 'home' | 'services' | 'destinations' | 'about' | 'contact' | 'testimonials' | 'blog' | 'visa-assistance' | 'test-preparation' | 'financial-assistance' | 'blog-post' | 'admission-guidance';
+  pageType?: 'home' | 'services' | 'destinations' | 'about' | 'contact' | 'testimonials';
 }
 
 const SEO: React.FC<SEOProps> = ({
