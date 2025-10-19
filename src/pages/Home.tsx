@@ -8,8 +8,7 @@ import CardSlider from "../hooks/CardSlider";
 import FormSection from "../components/FormSection";
 import Faq from "../components/Faq";
 import WhyChooseUs from "../components/WhyChooseUs";
-import SEO from "../components/SEO";
-import Chatbot from "../components/Chatbot";
+// SEO and Chatbot intentionally omitted on this page to avoid duplicate tags and side effects
 import FadeInSection from "../components/FadeInSection";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -203,8 +202,9 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Quick Services Section */}
-      <section className="py-20 bg-gray-50">
+  {/* Quick Services Section */}
+  <FadeInSection>
+  <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-gray-900 mb-4">
@@ -237,7 +237,6 @@ const Home: React.FC = () => {
           </div>
         </section>
       </FadeInSection>
-
       {/* Core Services Section */}
       <FadeInSection>
         <section ref={servicesSectionRef} className="py-20 bg-primary-50">
