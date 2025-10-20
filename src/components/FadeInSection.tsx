@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 
 interface FadeInSectionProps {
   children: React.ReactNode;
@@ -22,23 +22,26 @@ const FadeInSection: React.FC<FadeInSectionProps> = ({
 }) => {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const isMobile = useMemo(() => (typeof window !== 'undefined' ? window.matchMedia('(max-width: 640px)').matches : false), []);
   
   const isInView = useInView(ref, { 
-    once: false, // Allow multiple triggers
-    margin: "-50px 0px -50px 0px" // Reduced margin for earlier trigger
+    // On mobile, animate once for better performance
+    once: isMobile || prefersReducedMotion,
+    // Trigger a bit earlier on mobile to reduce perceived delay
+    margin: isMobile ? '0px 0px -10% 0px' : '-50px 0px -50px 0px'
   });
 
   useEffect(() => {
     if (isInView) {
       setIsVisible(true);
-    } else if (fadeOut) {
-      // Add a small delay to make fade-out more visible
+    } else if (!isMobile && !prefersReducedMotion && fadeOut) {
       const timer = setTimeout(() => {
         setIsVisible(false);
-      }, 100);
+      }, 80);
       return () => clearTimeout(timer);
     }
-  }, [isInView, fadeOut]);
+  }, [isInView, fadeOut, isMobile, prefersReducedMotion]);
 
   const getInitialPosition = () => {
     switch (direction) {
@@ -85,18 +88,24 @@ const FadeInSection: React.FC<FadeInSectionProps> = ({
     }
   };
 
+  const effectiveDistance = prefersReducedMotion ? 0 : (isMobile ? Math.min(24, distance) : distance);
+  const effectiveDuration = prefersReducedMotion ? 0 : (isMobile ? Math.min(0.45, duration) : duration);
+  const effectiveDelay = prefersReducedMotion ? 0 : (isMobile ? Math.min(0.05, delay) : delay);
+  const allowFadeOut = !isMobile && !prefersReducedMotion && fadeOut;
+
   return (
     <motion.div
       ref={ref}
-      initial={getInitialPosition()}
-      animate={isVisible ? getAnimatePosition() : (fadeOut ? getExitPosition() : getAnimatePosition())}
+      initial={{ ...getInitialPosition(), ...(effectiveDistance !== distance ? (direction === 'left' || direction === 'right' ? { x: (getInitialPosition() as any).x ? Math.sign((getInitialPosition() as any).x) * effectiveDistance : 0 } : { y: (getInitialPosition() as any).y ? Math.sign((getInitialPosition() as any).y) * effectiveDistance : 0 }) : {} } as any}
+      animate={isVisible ? getAnimatePosition() : (allowFadeOut ? getExitPosition() : getAnimatePosition())}
       transition={{
-        duration: isVisible ? duration : duration * 0.8, // Faster fade-out
-        delay: isVisible ? delay : 0, // No delay on fade-out
+        duration: isVisible ? effectiveDuration : effectiveDuration * 0.8,
+        delay: isVisible ? effectiveDelay : 0,
         ease: isVisible 
           ? [0.25, 0.46, 0.45, 0.94] // Smooth ease-in
           : [0.55, 0.06, 0.68, 0.19], // Quick ease-out
       }}
+      style={{ willChange: 'transform, opacity' }}
       className={className}
     >
       {children}

@@ -219,7 +219,7 @@ const Hero = () => {
                 ref={imgRef}
                 src="/girlimg.png"
                 alt="Students studying abroad"
-                className="rounded-2xl shadow-2xl w-auto h-[500px] object-cover"
+                className="rounded-2xl shadow-2xl w-auto h-[360px] sm:h-[420px] md:h-[500px] object-cover"
               />
             </div>
 
