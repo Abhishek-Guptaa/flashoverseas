@@ -181,7 +181,7 @@ const Home: React.FC = () => {
 
 
       {/* Elegant Stats Section */}
-      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-slate-50 to-primary-50 relative overflow-hidden">
         {/* Background decoration */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f9ff_1px,transparent_1px),linear-gradient(to_bottom,#f0f9ff_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
         
@@ -334,8 +334,8 @@ const Home: React.FC = () => {
               <p className="text-lg text-slate-600 mb-8">
                 We make studying abroad simple and stress-free
               </p>
-              <button className="px-8 py-3.5 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-all duration-300 font-medium">
-                Get Started
+              <button className="px-8 py-3.5 bg-primary-600 text-white rounded-lg hover:bg-primary-800 hover:scale-105 transition-all duration-300 font-medium transform active:scale-95">
+                Schedule a call
               </button>
             </div>
 
