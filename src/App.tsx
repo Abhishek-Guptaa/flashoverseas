@@ -18,6 +18,7 @@ import TermsAndConditions from './pages/TermsAndConditions';
 import Blog from './pages/Blog';
 import BlogPostPage from './pages/BlogPost';
 import Admin from './pages/Admin';
+import NotFound from './pages/NotFound';
 import ScrollToTop from './hooks/ScrollToTop';
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/blog/:slug" element={<BlogPostPage />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<TermsAndConditions />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
               <Footer />
             </div>

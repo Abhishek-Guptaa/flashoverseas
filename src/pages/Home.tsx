@@ -349,6 +349,9 @@ const Home: React.FC = () => {
       <section className="bg-gradient-to-b from-white to-primary-100">
         <Faq/>
       </section>
+
+      {/* Chatbot Component */}
+      <Chatbot />
     </div>
   );
 };
