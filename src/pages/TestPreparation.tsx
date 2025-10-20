@@ -179,9 +179,10 @@ const TestPreparation = () => {
         description="Expert test preparation services for IELTS, TOEFL, GRE, GMAT, PTE, SAT. Comprehensive coaching with 98% success rate. Flexible schedules, mock tests, and score guarantees. Book your free consultation today."
         keywords="test preparation, IELTS coaching, TOEFL coaching, GRE coaching, GMAT coaching, PTE coaching, SAT coaching, English test preparation, study abroad test prep, test coaching vizag, test preparation hyderabad"
         url="https://flashoverseas.com/test-preparation"
-        pageType="test-preparation"
+        pageType="services"
       />
       
+      {/* Hero Section */}
       {/* Hero Section */}
       <section ref={heroRef} className="relative h-screen flex items-center px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
@@ -200,7 +201,7 @@ const TestPreparation = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl font-light text-slate-900 mb-6 tracking-tight">
-                Test <span className="font-semibold">Preparation</span>
+                Test <span className="font-semibold text-primary-600">Preparation</span>
               </h1>
               <p className="hero-description text-lg sm:text-xl text-slate-600 mb-8 leading-relaxed">
                 Master your standardized tests with our expert coaching. From IELTS to GMAT, we provide comprehensive preparation with proven results and score guarantees.
@@ -251,7 +252,7 @@ const TestPreparation = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Available <span className="font-semibold">Tests</span>
+              Available <span className="font-semibold text-primary-600">Tests</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Choose from our comprehensive range of test preparation programs designed for your success.
@@ -331,7 +332,7 @@ const TestPreparation = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Why Choose Our <span className="font-semibold">Test Preparation?</span>
+              Why Choose Our <span className="font-semibold text-primary-600">Test Preparation?</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               We provide the most comprehensive and effective test preparation programs with proven results.
@@ -370,7 +371,7 @@ const TestPreparation = () => {
       <section ref={ctaRef} className="py-20 bg-slate-900">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-light text-white mb-6">
-            Ready to <span className="font-semibold">Ace Your Test?</span>
+            Ready to <span className="font-semibold text-primary-600">Ace Your Test?</span>
           </h2>
           <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
             Join thousands of successful students who achieved their target scores with our expert guidance. Book your free demo class today.

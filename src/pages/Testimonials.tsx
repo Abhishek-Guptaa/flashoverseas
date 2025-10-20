@@ -202,7 +202,7 @@ const Testimonials = () => {
 
         <div className="relative max-w-6xl mx-auto text-center">
           <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl font-light text-slate-900 mb-6 tracking-tight">
-            Student <span className="font-semibold">Success Stories</span>
+            Student <span className="font-semibold text-primary-600">Success Stories</span>
           </h1>
 
           <p className="hero-description text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed">
@@ -217,7 +217,7 @@ const Testimonials = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Featured <span className="font-semibold">Success Stories</span>
+              Featured <span className="font-semibold text-primary-600">Success Stories</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Discover how we helped these students achieve their dreams of studying at top universities.
@@ -334,7 +334,7 @@ const Testimonials = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              More <span className="font-semibold">Success Stories</span>
+              More <span className="font-semibold text-primary-600">Success Stories</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Every student has a unique journey to success. Here are more inspiring stories from our students.
@@ -417,7 +417,7 @@ const Testimonials = () => {
       <section className="py-20 bg-slate-900">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-light text-white mb-6">
-            Ready to Write Your <span className="font-semibold">Success Story?</span>
+            Ready to Write Your <span className="font-semibold text-primary-600">Success Story?</span>
           </h2>
           <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
             Join thousands of successful students who achieved their study abroad dreams with our expert guidance.

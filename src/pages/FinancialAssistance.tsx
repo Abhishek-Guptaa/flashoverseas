@@ -159,7 +159,7 @@ const FinancialAssistance = () => {
         description="Expert financial assistance for study abroad. Scholarship search, education loan guidance, financial planning, grant applications, work-study programs. Maximize your funding opportunities. Book free consultation."
         keywords="financial assistance, scholarships, education loans, financial planning, study abroad funding, grant applications, work-study programs, crowdfunding, education finance, study abroad loans"
         url="https://flashoverseas.com/financial-assistance"
-        pageType="financial-assistance"
+        pageType="services"
       />
       
       {/* Hero Section */}
@@ -171,7 +171,7 @@ const FinancialAssistance = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl font-light text-slate-900 mb-6 tracking-tight">
-                Financial <span className="font-semibold">Assistance</span>
+                Financial <span className="font-semibold text-primary-600">Assistance</span>
               </h1>
               <p className="hero-description text-lg sm:text-xl text-slate-600 mb-8 leading-relaxed">
                 Make your study abroad dreams affordable with our comprehensive financial assistance services. From scholarships to loans, we help you secure the best funding options.
@@ -222,7 +222,7 @@ const FinancialAssistance = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Our <span className="font-semibold">Services</span>
+              Our <span className="font-semibold text-primary-600">Services</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Comprehensive financial assistance services to make your study abroad journey affordable.

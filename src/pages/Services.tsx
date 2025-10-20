@@ -262,7 +262,7 @@ const Services = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl font-light text-slate-900 mb-6 tracking-tight">
-                Student <span className="font-semibold">Services</span>
+                Student <span className="font-semibold text-primary-600">Services</span>
           </h1>
               <p className="hero-description text-lg sm:text-xl text-slate-600 mb-8 leading-relaxed">
                 Comprehensive study abroad services designed to help you achieve your international education dreams. From test preparation to visa assistance, we're your trusted partner.
@@ -340,7 +340,7 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              4 Steps to Your <span className="font-semibold">Dream Destination</span>
+              4 Steps to Your <span className="font-semibold text-primary-600">Dream Destination</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Our proven process ensures your success at every step of your study abroad journey.
@@ -372,7 +372,7 @@ const Services = () => {
         <section ref={ctaRef} className="py-20 bg-slate-900">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-light text-white mb-6">
-            Ready to <span className="font-semibold">Start Your Journey?</span>
+            Ready to <span className="font-semibold text-primary-600">Start Your Journey?</span>
           </h2>
           <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
             Join thousands of successful students who achieved their dreams with our expert guidance. Get started with a free consultation today.

@@ -147,7 +147,7 @@ const Blog = () => {
         <section className="py-16 bg-slate-50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl sm:text-5xl font-light text-slate-900 mb-4 tracking-tight">
-              Study Abroad <span className="font-semibold">Blog</span>
+              Study Abroad <span className="font-semibold text-primary-600">Blog</span>
             </h1>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto">
               Stay updated with the latest study abroad news, expert tips, and comprehensive guides to help you succeed in your international education journey.

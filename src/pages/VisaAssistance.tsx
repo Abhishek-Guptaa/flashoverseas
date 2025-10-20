@@ -162,7 +162,7 @@ const VisaAssistance = () => {
         description="Expert visa assistance services for students. Student visa applications, work visa guidance, family visa support, renewals, appeals. 98% success rate. Complete documentation support. Book free consultation."
         keywords="visa assistance, student visa, work visa, family visa, visa applications, visa renewal, visa appeals, study abroad visa, immigration support, visa documentation, visa consulting"
         url="https://flashoverseas.com/visa-assistance"
-        pageType="visa-assistance"
+        pageType="services"
       />
       
       {/* Hero Section */}
@@ -174,7 +174,7 @@ const VisaAssistance = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl font-light text-slate-900 mb-6 tracking-tight">
-                Visa <span className="font-semibold">Assistance</span>
+                Visa <span className="font-semibold text-primary-600">Assistance</span>
               </h1>
               <p className="hero-description text-lg sm:text-xl text-slate-600 mb-8 leading-relaxed">
                 Navigate the complex visa process with confidence. Our expert team ensures your visa application success with comprehensive support and guidance.
@@ -225,7 +225,7 @@ const VisaAssistance = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Our <span className="font-semibold">Services</span>
+              Our <span className="font-semibold text-primary-600">Services</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Comprehensive visa assistance services for all your immigration needs.
@@ -298,7 +298,7 @@ const VisaAssistance = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Visa Support for <span className="font-semibold">All Countries</span>
+              Visa Support for <span className="font-semibold text-primary-600">All Countries</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               We provide visa assistance for all major study destinations worldwide.
@@ -321,7 +321,7 @@ const VisaAssistance = () => {
       <section ref={ctaRef} className="py-20 bg-slate-900">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-light text-white mb-6">
-            Ready to <span className="font-semibold">Apply for Your Visa?</span>
+            Ready to <span className="font-semibold text-primary-600">Apply for Your Visa?</span>
           </h2>
           <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
             Let our visa experts guide you through the application process. Book your free consultation today.

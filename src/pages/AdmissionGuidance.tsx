@@ -192,7 +192,7 @@ const AdmissionGuidance = () => {
         description="Expert admission guidance services for university applications. University selection, application support, essay writing, interview preparation, scholarship applications. 98% success rate. Book free consultation."
         keywords="admission guidance, university selection, application support, essay writing, SOP writing, interview preparation, scholarship applications, university applications, study abroad applications, admission consulting"
         url="https://flashoverseas.com/admission-guidance"
-        pageType="admission-guidance"
+        pageType="services"
       />
       
       {/* Hero Section */}
@@ -213,7 +213,7 @@ const AdmissionGuidance = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl font-light text-slate-900 mb-6 tracking-tight">
-                Admission <span className="font-semibold">Guidance</span>
+                Admission <span className="font-semibold text-primary-600">Guidance</span>
               </h1>
               <p className="hero-description text-lg sm:text-xl text-slate-600 mb-8 leading-relaxed">
                 Navigate your university application journey with expert guidance. From university selection to essay writing, we ensure your success at every step.
@@ -264,7 +264,7 @@ const AdmissionGuidance = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Our <span className="font-semibold">Services</span>
+              Our <span className="font-semibold text-primary-600">Services</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Comprehensive admission guidance services designed to maximize your chances of success.
@@ -337,7 +337,7 @@ const AdmissionGuidance = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Our <span className="font-semibold">Process</span>
+              Our <span className="font-semibold text-primary-600">Process</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               A systematic approach to ensure your successful university admission.
@@ -367,7 +367,7 @@ const AdmissionGuidance = () => {
       <section ref={ctaRef} className="py-20 bg-slate-900">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-light text-white mb-6">
-            Ready to <span className="font-semibold">Start Your Application?</span>
+            Ready to <span className="font-semibold text-primary-600">Start Your Application?</span>
           </h2>
           <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
             Let our expert counselors guide you through your university application journey. Book your free consultation today.

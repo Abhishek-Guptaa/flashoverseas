@@ -421,11 +421,12 @@ const Header = () => {
                 </Link>
               ))}
 
-              <button 
+              <Link
+                to="/contact"
                 className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg"
               >
                 Free Consultation
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -522,11 +523,13 @@ const Header = () => {
             </Link>
           ))}
 
-          <button 
-            className="mt-8 w-full bg-primary-600 text-white px-6 py-4 rounded-xl font-medium hover:bg-primary-700 hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg"
+          <Link
+            to="/contact"
+            onClick={() => setIsMenuOpen(false)}
+            className="mt-8 w-full bg-primary-600 text-white px-6 py-4 rounded-xl font-medium hover:bg-primary-700 hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg text-center"
           >
             Free Consultation
-          </button>
+          </Link>
         </div>
       </div>
     </header>

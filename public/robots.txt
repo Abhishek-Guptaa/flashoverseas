@@ -1,0 +1,33 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://flashoverseas.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Disallow admin areas (if any)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+
+# Allow important pages
+Allow: /services
+Allow: /destinations
+Allow: /about
+Allow: /contact
+Allow: /testimonials
+
+# Allow destination detail pages
+Allow: /destinations/usa
+Allow: /destinations/uk
+Allow: /destinations/canada
+Allow: /destinations/australia
+Allow: /destinations/germany
+Allow: /destinations/singapore
+Allow: /destinations/ireland
+Allow: /destinations/france
+Allow: /destinations/netherlands
+Allow: /destinations/new-zealand
+Allow: /destinations/italy
