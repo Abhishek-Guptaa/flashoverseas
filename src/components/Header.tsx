@@ -39,7 +39,25 @@ const Header = () => {
     setDropdownTimeout(timeout);
   };
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
   // Optimized scroll detection for navbar effects
+  useEffect(() => {
+    // Prevent background scroll when mobile menu is open
+    if (isMenuOpen) {
+      document.body.classList.add('body-scroll-lock');
+    } else {
+      document.body.classList.remove('body-scroll-lock');
+    }
+    return () => document.body.classList.remove('body-scroll-lock');
+  }, [isMenuOpen]);
+
   useEffect(() => {
     let ticking = false;
     let lastScrollY = 0;
@@ -93,26 +111,40 @@ const Header = () => {
 
     // Initialize menu position with smooth setup
     gsap.set(menuRef.current, {
-      x: "100%",
+      x: "100vw",
       backdropFilter: "blur(0px)",
-      backgroundColor: "rgba(255, 255, 255, 0)"
+      backgroundColor: "rgba(255, 255, 255, 0)",
+      autoAlpha: 0,
+      pointerEvents: 'none',
     });
+
+    const isSmallScreen = typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches;
 
     if (isMenuOpen) {
       // Create a beautiful slide-in with spring physics
       const tl = gsap.timeline();
       
-      tl.to(menuRef.current, {
+      tl.set(menuRef.current, { autoAlpha: 1, pointerEvents: 'auto' })
+      .to(menuRef.current, {
         x: 0,
         duration: 0.8,
         ease: "power3.out",
       })
-      .to(menuRef.current, {
-        backdropFilter: "blur(20px)",
-        backgroundColor: "rgba(255, 255, 255, 0.95)",
-        duration: 0.6,
-        ease: "power2.out",
-      }, "-=0.4");
+      // Avoid heavy blur on small screens for performance
+      if (!isSmallScreen) {
+        tl.to(menuRef.current, {
+          backdropFilter: "blur(20px)",
+          backgroundColor: "rgba(255, 255, 255, 0.95)",
+          duration: 0.6,
+          ease: "power2.out",
+        }, "-=0.4");
+      } else {
+        tl.to(menuRef.current, {
+          backgroundColor: "rgba(255, 255, 255, 0.98)",
+          duration: 0.4,
+          ease: "power2.out",
+        }, "-=0.4");
+      }
 
       // Beautiful staggered link animations with spring physics
       gsap.fromTo(
@@ -140,11 +172,16 @@ const Header = () => {
     } else {
       // Smooth slide-out
       gsap.to(menuRef.current, {
-        x: "100%",
-        backdropFilter: "blur(0px)",
+        x: "100vw",
+        backdropFilter: isSmallScreen ? undefined : "blur(0px)",
         backgroundColor: "rgba(255, 255, 255, 0)",
         duration: 0.5,
         ease: "power3.inOut",
+        onComplete: () => {
+          if (menuRef.current) {
+            gsap.set(menuRef.current, { autoAlpha: 0, pointerEvents: 'none' });
+          }
+        }
       });
     }
   }, [isMenuOpen]);
@@ -305,7 +342,7 @@ const Header = () => {
               <img
                 src="/Logo.png"
                 alt="Flash Overseas Logo"
-                className="h-auto w-36 max-w-none object-contain"
+                className="h-auto w-28 sm:w-32 md:w-36 max-w-none object-contain"
                 style={{ display: 'block', visibility: 'visible', opacity: 1 }}
                 onError={(e) => {
                   console.error('Logo failed to load:', e);
@@ -468,6 +505,9 @@ const Header = () => {
       <div
         ref={menuRef}
         className="fixed top-0 left-0 w-full h-screen z-50 p-6 md:hidden overflow-y-auto"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
         style={{ 
           backdropFilter: 'blur(0px)', 
           backgroundColor: 'rgba(255, 255, 255, 0)',

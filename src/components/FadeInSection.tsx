@@ -93,11 +93,27 @@ const FadeInSection: React.FC<FadeInSectionProps> = ({
   const effectiveDelay = prefersReducedMotion ? 0 : (isMobile ? Math.min(0.05, delay) : delay);
   const allowFadeOut = !isMobile && !prefersReducedMotion && fadeOut;
 
+  const adjustedInitial = useMemo(() => {
+    const pos: any = getInitialPosition();
+    if (prefersReducedMotion) return pos;
+    if (effectiveDistance !== distance) {
+      if (typeof pos.x === 'number' && pos.x !== 0) {
+        pos.x = Math.sign(pos.x) * effectiveDistance;
+      }
+      if (typeof pos.y === 'number' && pos.y !== 0) {
+        pos.y = Math.sign(pos.y) * effectiveDistance;
+      }
+    }
+    return pos;
+  }, [direction, effectiveDistance, prefersReducedMotion]);
+
+  const animateTarget = isVisible ? getAnimatePosition() : (allowFadeOut ? getExitPosition() : getAnimatePosition());
+
   return (
     <motion.div
       ref={ref}
-      initial={{ ...getInitialPosition(), ...(effectiveDistance !== distance ? (direction === 'left' || direction === 'right' ? { x: (getInitialPosition() as any).x ? Math.sign((getInitialPosition() as any).x) * effectiveDistance : 0 } : { y: (getInitialPosition() as any).y ? Math.sign((getInitialPosition() as any).y) * effectiveDistance : 0 }) : {} } as any}
-      animate={isVisible ? getAnimatePosition() : (allowFadeOut ? getExitPosition() : getAnimatePosition())}
+      initial={adjustedInitial}
+      animate={animateTarget}
       transition={{
         duration: isVisible ? effectiveDuration : effectiveDuration * 0.8,
         delay: isVisible ? effectiveDelay : 0,

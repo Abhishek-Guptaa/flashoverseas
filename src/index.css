@@ -97,6 +97,18 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Prevent horizontal scrolling on mobile */
+html, body, #root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ensure images never overflow the viewport width */
+img, svg, video, canvas {
+  max-width: 100%;
+}
+
 /* Custom Scrollbar Styling */
 /* For Webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
