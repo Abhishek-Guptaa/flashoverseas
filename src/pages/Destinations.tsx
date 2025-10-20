@@ -246,7 +246,7 @@ const Destinations = () => {
 
         <div className="relative max-w-6xl mx-auto text-center">
           <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl font-light text-slate-900 mb-6 tracking-tight">
-            Study <span className="font-semibold">Destinations</span>
+            Study <span className="font-semibold text-primary-600">Destinations</span>
           </h1>
 
           <p className="hero-description text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed">
@@ -262,7 +262,7 @@ const Destinations = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Choose Your <span className="font-semibold">Dream Destination</span>
+              Choose Your <span className="font-semibold text-primary-600">Dream Destination</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Discover the perfect country for your study abroad journey with our comprehensive destination guides.
@@ -379,7 +379,7 @@ const Destinations = () => {
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-light text-white mb-6">
-            Need Help <span className="font-semibold">Choosing?</span>
+            Need Help <span className="font-semibold text-primary-600">Choosing?</span>
           </h2>
           <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
             Our expert counselors can help you find the perfect destination based on your goals, budget, and preferences.

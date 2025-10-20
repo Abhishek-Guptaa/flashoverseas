@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  MapPin, 
   Users, 
   DollarSign, 
   Clock, 
@@ -81,7 +80,7 @@ const DestinationDetail = () => {
       name: "United States",
       flag: "🇺🇸",
       image: "https://images.pexels.com/photos/290595/pexels-photo-290595.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      universities: "4,000+",
+      universityCount: "4,000+",
       avgCost: "$30,000-60,000",
       duration: "4 years (Bachelor's)",
       description: "Home to world's top universities with diverse programs and research opportunities.",
@@ -222,7 +221,7 @@ const DestinationDetail = () => {
       name: "United Kingdom",
       flag: "🇬🇧",
       image: "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      universities: "150+",
+      universityCount: "150+",
       avgCost: "$25,000-45,000",
       duration: "3 years (Bachelor's)",
       description: "Rich academic heritage with shorter degree programs and global recognition.",
@@ -363,7 +362,7 @@ const DestinationDetail = () => {
       name: "Canada",
       flag: "🇨🇦",
       image: "https://images.pexels.com/photos/2132126/pexels-photo-2132126.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      universities: "200+",
+      universityCount: "200+",
       avgCost: "$20,000-40,000",
       duration: "4 years (Bachelor's)",
       description: "High-quality education with affordable costs and excellent post-graduation opportunities.",
@@ -504,7 +503,7 @@ const DestinationDetail = () => {
       name: "Australia",
       flag: "🇦🇺",
       image: "https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1200",
-      universities: "43",
+      universityCount: "43",
       avgCost: "$25,000-45,000",
       duration: "3-4 years (Bachelor's)",
       description: "World-class education with beautiful landscapes and excellent work opportunities.",
@@ -645,7 +644,7 @@ const DestinationDetail = () => {
       name: "Germany",
       flag: "🇩🇪",
       image: "https://images.pexels.com/photos/2397414/pexels-photo-2397414.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      universities: "400+",
+      universityCount: "400+",
       avgCost: "€0-20,000",
       duration: "3-4 years (Bachelor's)",
       description: "Free or low-cost education with world-class universities and strong economy.",
@@ -786,7 +785,7 @@ const DestinationDetail = () => {
       name: "Singapore",
       flag: "🇸🇬",
       image: "https://images.pexels.com/photos/2901209/pexels-photo-2901209.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      universities: "6",
+      universityCount: "6",
       avgCost: "$15,000-35,000",
       duration: "3-4 years (Bachelor's)",
       description: "Asian hub of education with world-class universities and multicultural environment.",
@@ -927,7 +926,7 @@ const DestinationDetail = () => {
       name: "Ireland",
       flag: "🇮🇪",
       image: "https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      universities: "25+",
+      universityCount: "25+",
       avgCost: "€10,000-25,000",
       duration: "3-4 years (Bachelor's)",
       description: "English-speaking country with excellent universities and vibrant culture.",
@@ -1068,7 +1067,7 @@ const DestinationDetail = () => {
       name: "France",
       flag: "🇫🇷",
       image: "https://images.pexels.com/photos/2363/france-landmark-lights-night.jpg?auto=compress&cs=tinysrgb&w=1200",
-      universities: "3,500+",
+      universityCount: "3,500+",
       avgCost: "€3,000-15,000",
       duration: "3-4 years (Bachelor's)",
       description: "Rich culture, excellent education, and gateway to Europe.",
@@ -1209,7 +1208,7 @@ const DestinationDetail = () => {
       name: "Netherlands",
       flag: "🇳🇱",
       image: "https://images.pexels.com/photos/249074/pexels-photo-249074.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      universities: "50+",
+      universityCount: "50+",
       avgCost: "€8,000-20,000",
       duration: "3-4 years (Bachelor's)",
       description: "Innovative education system with English-taught programs.",
@@ -1350,7 +1349,7 @@ const DestinationDetail = () => {
       name: "New Zealand",
       flag: "🇳🇿",
       image: "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      universities: "8",
+      universityCount: "8",
       avgCost: "$20,000-35,000",
       duration: "3-4 years (Bachelor's)",
       description: "Beautiful country with high-quality education and work opportunities.",
@@ -1491,7 +1490,7 @@ const DestinationDetail = () => {
       name: "Italy",
       flag: "🇮🇹",
       image: "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      universities: "90+",
+      universityCount: "90+",
       avgCost: "€1,000-4,000",
       duration: "3-4 years (Bachelor's)",
       description: "Rich history, culture, and affordable education in Europe.",
@@ -1654,7 +1653,7 @@ const DestinationDetail = () => {
 
         <div className="relative max-w-6xl mx-auto text-center">
           <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl font-light text-slate-900 mb-6 tracking-tight">
-            Study in <span className="font-semibold">{destination.name}</span>
+            Study in <span className="font-semibold text-primary-600">{destination.name}</span>
             <span className="text-4xl ml-4">{destination.flag}</span>
           </h1>
 
@@ -1686,7 +1685,7 @@ const DestinationDetail = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Why Study in <span className="font-semibold">{destination.name}?</span>
+              Why Study in <span className="font-semibold text-primary-600">{destination.name}?</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Discover the unique advantages and opportunities that make {destination.name} an excellent choice for international students.
@@ -1720,7 +1719,7 @@ const DestinationDetail = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Top Universities in <span className="font-semibold">{destination.name}</span>
+              Top Universities in <span className="font-semibold text-primary-600">{destination.name}</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Explore some of the world's most prestigious universities and find the perfect match for your academic goals.
@@ -1752,7 +1751,7 @@ const DestinationDetail = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Popular Courses in <span className="font-semibold">{destination.name}</span>
+              Popular Courses in <span className="font-semibold text-primary-600">{destination.name}</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Choose from a wide range of programs designed to prepare you for success in your chosen field.
@@ -1786,7 +1785,7 @@ const DestinationDetail = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Cost of Studying in <span className="font-semibold">{destination.name}</span>
+              Cost of Studying in <span className="font-semibold text-primary-600">{destination.name}</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Plan your budget with our comprehensive breakdown of tuition fees and living expenses.
@@ -1832,7 +1831,7 @@ const DestinationDetail = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Requirements to Study in <span className="font-semibold">{destination.name}</span>
+              Requirements to Study in <span className="font-semibold text-primary-600">{destination.name}</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Ensure you meet all the necessary requirements for a successful application.
@@ -1857,7 +1856,7 @@ const DestinationDetail = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Scholarships in <span className="font-semibold">{destination.name}</span>
+              Scholarships in <span className="font-semibold text-primary-600">{destination.name}</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Explore various scholarship opportunities to help fund your education.
@@ -1882,7 +1881,7 @@ const DestinationDetail = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Career Prospects in <span className="font-semibold">{destination.name}</span>
+              Career Prospects in <span className="font-semibold text-primary-600">{destination.name}</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Discover the diverse career opportunities available after graduation.
@@ -1908,7 +1907,7 @@ const DestinationDetail = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Frequently Asked <span className="font-semibold">Questions</span>
+              Frequently Asked <span className="font-semibold text-primary-600">Questions</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Find answers to common questions about studying in {destination.name}.
@@ -1944,7 +1943,7 @@ const DestinationDetail = () => {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-light text-white mb-6">
-            Ready to Study in <span className="font-semibold">{destination.name}?</span>
+            Ready to Study in <span className="font-semibold text-primary-600">{destination.name}?</span>
           </h2>
           <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
             Get expert guidance and support throughout your application process with our experienced counselors.

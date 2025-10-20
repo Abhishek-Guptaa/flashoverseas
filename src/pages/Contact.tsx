@@ -210,7 +210,7 @@ const Contact = () => {
 
         <div className="relative max-w-6xl mx-auto text-center">
           <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl font-light text-slate-900 mb-6 tracking-tight">
-            Get In <span className="font-semibold">Touch</span>
+            Get In <span className="font-semibold text-primary-600">Touch</span>
           </h1>
 
           <p className="hero-description text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed">
@@ -281,7 +281,7 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16">
             {/* Contact Form */}
-            <div className="relative">
+            <div className="relative" id="contact-form">
               {/* Background Pattern */}
               <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl"></div>
               <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.03%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-40 rounded-3xl"></div>
@@ -502,7 +502,7 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-light text-slate-900 mb-4">
-              Find Us <span className="font-semibold">Here</span>
+              Find Us <span className="font-semibold text-primary-600">Here</span>
             </h2>
           </div>
 
@@ -528,7 +528,7 @@ const Contact = () => {
         <section className="py-20 bg-slate-900">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-light text-white mb-6">
-            Ready to Start Your <span className="font-semibold">Study Abroad Journey?</span>
+            Ready to Start Your <span className="font-semibold text-primary-600">Study Abroad Journey?</span>
           </h2>
           <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
             Join thousands of successful students who achieved their dreams with our expert guidance. Contact us today for a free consultation.
