@@ -7,6 +7,7 @@ import { gsap } from "gsap";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [dropdownTimeout, setDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
   const location = useLocation();
   const menuRef = useRef<HTMLDivElement>(null);
@@ -16,6 +17,7 @@ const Header = () => {
   const headerRef = useRef<HTMLElement>(null);
   const logoRef = useRef<HTMLAnchorElement>(null);
   const servicesDropdownRef = useRef<HTMLDivElement>(null);
+  const mobileServicesRef = useRef<HTMLDivElement>(null);
 
   const isActive = (path: string) => {
     if (path === "/") {
@@ -47,15 +49,32 @@ const Header = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
-  // Optimized scroll detection for navbar effects
+  // Prevent background scroll when mobile menu is open (robust lock)
   useEffect(() => {
-    // Prevent background scroll when mobile menu is open
     if (isMenuOpen) {
-      document.body.classList.add('body-scroll-lock');
+      const scrollY = window.scrollY || window.pageYOffset;
+      document.body.dataset.scrollLock = String(scrollY);
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.classList.remove('body-scroll-lock');
+      const top = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      if (top) {
+        const y = parseInt(top || '0', 10);
+        window.scrollTo(0, -y);
+      }
     }
-    return () => document.body.classList.remove('body-scroll-lock');
+    return () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+    };
   }, [isMenuOpen]);
 
   useEffect(() => {
@@ -71,15 +90,7 @@ const Header = () => {
           if (Math.abs(scrollTop - lastScrollY) > 5) {
             const scrollProgress = Math.min(scrollTop / 100, 1);
             
-            // Smooth logo animation with spring physics
-            if (logoRef.current) {
-              gsap.to(logoRef.current, {
-                scale: 1 - (scrollProgress * 0.1),
-                y: scrollProgress * -2,
-                duration: 0.6,
-                ease: "power2.out"
-              });
-            }
+            // Logo animation removed per request
             
             // Smooth header background animation
             if (headerRef.current) {
@@ -134,13 +145,13 @@ const Header = () => {
       if (!isSmallScreen) {
         tl.to(menuRef.current, {
           backdropFilter: "blur(20px)",
-          backgroundColor: "rgba(255, 255, 255, 0.95)",
+          backgroundColor: "rgba(255, 255, 255, 1)",
           duration: 0.6,
           ease: "power2.out",
         }, "-=0.4");
       } else {
         tl.to(menuRef.current, {
-          backgroundColor: "rgba(255, 255, 255, 0.98)",
+          backgroundColor: "rgba(255, 255, 255, 1)",
           duration: 0.4,
           ease: "power2.out",
         }, "-=0.4");
@@ -169,6 +180,8 @@ const Header = () => {
           delay: 0.4,
         }
       );
+      // Ensure mobile services section starts closed on open
+      setIsMobileServicesOpen(false);
     } else {
       // Smooth slide-out
       gsap.to(menuRef.current, {
@@ -185,6 +198,21 @@ const Header = () => {
       });
     }
   }, [isMenuOpen]);
+
+  // Animate mobile services accordion
+  useEffect(() => {
+    if (!mobileServicesRef.current) return;
+    const content = mobileServicesRef.current;
+    if (isMobileServicesOpen) {
+      gsap.fromTo(
+        content,
+        { height: 0, opacity: 0 },
+        { height: 'auto', opacity: 1, duration: 0.35, ease: 'power2.out' }
+      );
+    } else {
+      gsap.to(content, { height: 0, opacity: 0, duration: 0.25, ease: 'power2.in' });
+    }
+  }, [isMobileServicesOpen]);
 
   // Beautiful GSAP Animation for Burger ↔ Close icon
   useEffect(() => {
@@ -323,7 +351,7 @@ const Header = () => {
   return (
     <header 
       ref={headerRef}
-      className="sticky top-0 z-50"
+      className="fixed top-0 left-0 w-full z-50"
       style={{
         backgroundColor: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(8px)',
@@ -337,7 +365,7 @@ const Header = () => {
             <Link 
               ref={logoRef}
               to="/" 
-              className="flex items-center space-x-2 group hover:scale-105 transition-transform duration-200"
+              className="flex items-center space-x-2"
             >
               <img
                 src="/Logo.png"
@@ -470,7 +498,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <div 
             className={`md:hidden relative w-10 h-10 rounded-lg group transition-all duration-200 z-[60] hover:scale-105 ${
-              isMenuOpen ? 'bg-primary-100' : 'bg-gray-50 hover:bg-gray-100'
+              isMenuOpen ? 'bg-gray-50' : 'bg-gray-50 hover:bg-gray-100'
             }`}
           >
             {/* Burger icon */}
@@ -493,7 +521,7 @@ const Header = () => {
             </div>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="absolute inset-0 w-full h-full focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-lg"
+              className="absolute inset-0 w-full h-full focus:outline-none rounded-lg"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}
             />
@@ -510,48 +538,17 @@ const Header = () => {
         aria-label="Mobile navigation"
         style={{ 
           backdropFilter: 'blur(0px)', 
-          backgroundColor: 'rgba(255, 255, 255, 0)',
+          backgroundColor: 'rgba(255, 255, 255, 1)',
           transform: 'translateX(100%)'
         }}
       >
         {/* Links */}
         <div className="flex flex-col space-y-6 mt-16">
-          {/* Services Dropdown for Mobile */}
-          <div className="space-y-2">
-            <div className="text-xl font-medium py-3 px-4 text-gray-800 border-b border-gray-200">
-              Services
-            </div>
-            {servicesDropdown.map((service, i) => {
-              const IconComponent = service.icon;
-              return (
-                <Link
-                  key={i}
-                  to={service.to}
-                  ref={(el) => {
-                    if (el) linkRefs.current[i] = el;
-                  }}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`flex items-center space-x-3 text-lg py-3 px-6 rounded-xl transition-all duration-200 ${
-                    isActive(service.to)
-                      ? "text-primary-600 bg-primary-50"
-                      : "text-gray-700 hover:text-primary-600 hover:bg-gray-50"
-                  }`}
-                >
-                  <IconComponent className="w-5 h-5 text-primary-600" />
-                  <span>{service.label}</span>
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* Other Navigation Links */}
-          {mobileLinks.map((link, i) => (
+          {/* Home and About first */}
+          {mobileLinks.filter(l => l.to === "/" || l.to === "/about").map((link, i) => (
             <Link
-              key={i + servicesDropdown.length}
+              key={`top-${i}`}
               to={link.to}
-              ref={(el) => {
-                if (el) linkRefs.current[i + servicesDropdown.length] = el;
-              }}
               onClick={() => setIsMenuOpen(false)}
               className={`block text-xl font-medium py-3 px-4 rounded-xl transition-all duration-200 ${
                 isActive(link.to)
@@ -563,10 +560,65 @@ const Header = () => {
             </Link>
           ))}
 
+          {/* Services Accordion after About */}
+          <div className="space-y-1">
+            <button
+              type="button"
+              onClick={() => setIsMobileServicesOpen((v) => !v)}
+              className="w-full flex items-center justify-between text-xl font-medium py-3 px-4 text-gray-800 border-b border-gray-200"
+              aria-expanded={isMobileServicesOpen}
+              aria-controls="mobile-services"
+            >
+              <span>Services</span>
+              <ChevronDown className={`w-5 h-5 transition-transform duration-200 ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
+            </button>
+            <div
+              id="mobile-services"
+              ref={mobileServicesRef}
+              style={{ height: 0, overflow: 'hidden', opacity: 0 }}
+            >
+              {servicesDropdown.map((service, i) => {
+                const IconComponent = service.icon;
+                return (
+                  <Link
+                    key={i}
+                    to={service.to}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`flex items-center space-x-3 text-lg py-3 px-6 rounded-xl transition-all duration-200 ${
+                      isActive(service.to)
+                        ? "text-primary-600 bg-primary-50"
+                        : "text-gray-700 hover:text-primary-600 hover:bg-gray-50"
+                    }`}
+                  >
+                    <IconComponent className="w-5 h-5 text-primary-600" />
+                    <span>{service.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Remaining links after Services */}
+          {mobileLinks.filter(l => l.to !== "/" && l.to !== "/about").map((link, i) => (
+            <Link
+              key={`rest-${i}`}
+              to={link.to}
+              onClick={() => setIsMenuOpen(false)}
+              className={`block text-xl font-medium py-3 px-4 rounded-xl transition-all duration-200 ${
+                isActive(link.to)
+                  ? "text-primary-600 bg-primary-50"
+                  : "text-gray-800 hover:text-primary-600 hover:bg-gray-50"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+
+          {/* CTA inside overlay */}
           <Link
             to="/contact"
             onClick={() => setIsMenuOpen(false)}
-            className="mt-8 w-full bg-primary-600 text-white px-6 py-4 rounded-xl font-medium hover:bg-primary-700 hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg text-center"
+            className="mt-8 w-full bg-primary-600 text-white px-6 py-4 rounded-xl font-semibold text-lg hover:bg-primary-700 hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg text-center"
           >
             Free Consultation
           </Link>

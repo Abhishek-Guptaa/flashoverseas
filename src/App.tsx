@@ -33,7 +33,7 @@ function App() {
           
           {/* Regular routes - with header/footer */}
           <Route path="/*" element={
-            <div className="min-h-screen">
+            <div className="min-h-screen pt-[var(--header-height)]">
               <Header />
               <Routes>
                 <Route path="/" element={<Home />} />
